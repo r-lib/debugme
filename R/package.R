@@ -25,10 +25,13 @@
 #' "!DEBUG Start Shiny app"
 #' ```
 #'
+#' @param env Environment to instument debugging in. Defaults to the
+#'   package environment of the calling package.
+#' @param pkg Name of the calling package. The default should be fine
+#'   for almost all cases.
+#'
 #' @docType package
 #' @name debugme
-NULL
-
 #' @export
 
 debugme <- function(env = topenv(parent.frame()),

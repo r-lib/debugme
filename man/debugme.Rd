@@ -5,6 +5,16 @@
 \alias{debugme}
 \alias{debugme-package}
 \title{Debug R Packages}
+\usage{
+debugme(env = topenv(parent.frame()), pkg = environmentName(env))
+}
+\arguments{
+\item{env}{Environment to instument debugging in. Defaults to the
+package environment of the calling package.}
+
+\item{pkg}{Name of the calling package. The default should be fine
+for almost all cases.}
+}
 \description{
 Specify debug messages as special string constants, and control
 debugging of packages via environment variables.

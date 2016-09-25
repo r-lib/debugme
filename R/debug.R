@@ -1,4 +1,13 @@
 
+#' Debug message
+#'
+#' Normally this function is *not* called directly, but debug strings
+#' are used. See [debugme()].
+#'
+#' @param msg Message to print, character constant.
+#' @param pkg Package name to which the message belongs. Detected
+#'   automatically.
+#'
 #' @export
 
 debug <- function(msg, pkg = environmentName(topenv(parent.frame()))) {
