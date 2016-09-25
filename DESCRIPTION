@@ -13,6 +13,7 @@ RoxygenNote: 5.0.1.9000
 Roxygen: list(markdown = TRUE)
 Imports: 
     crayon
-Suggests: 
+Suggests:
+    covr,
     testthat
 Encoding: UTF-8
