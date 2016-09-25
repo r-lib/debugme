@@ -1,0 +1,37 @@
+
+context("debugme")
+
+test_that(".onLoad", {
+
+  val <- NULL
+
+  with_mock(
+    `debugme::initialize_colors` = function(pkgs) val <<- pkgs,
+    withr::with_envvar(
+      c("DEBUGME" = c("foo,bar")),
+      .onLoad()
+    )
+  )
+  expect_identical(val, c("foo", "bar"))
+})
+
+test_that("debugme", {
+
+  env <- new.env()
+  env$f1 <- function() { "nothing here" }
+  env$f2 <- function() { "!DEBUG foobar" }
+  env$notme <- "!DEBUG nonono"
+  env$.hidden <- function() { "!DEBUG foobar2" }
+
+  expect_silent(debugme(env))
+
+  with_mock(
+    `base::match` = function(...) 1L,
+    debugme(env)
+  )
+
+  expect_silent(env$f1())
+  expect_output(env$f2(), "debugme foobar")
+  expect_identical(env$notme, "!DEBUG nonono")
+  expect_output(env$.hidden(), "debugme foobar2")
+})

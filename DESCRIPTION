@@ -16,5 +16,6 @@ Imports:
     grDevices
 Suggests:
     covr,
-    testthat
+    testthat,
+    withr
 Encoding: UTF-8

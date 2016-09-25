@@ -7,7 +7,10 @@ initialize_colors <- function(debug_pkgs) {
             "silver")
 
   palette <- structure(
-    c(cols, sample(colors(), max(length(debug_pkgs) - length(cols), 0))),
+    c(
+      cols,
+      sample(colors(), max(length(debug_pkgs) - length(cols), 0))
+    )[seq_along(debug_pkgs)],
     names = debug_pkgs
   )
 
