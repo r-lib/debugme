@@ -9,7 +9,7 @@
 [![Windows Build status](https://ci.appveyor.com/api/projects/status/github/gaborcsardi/debugme?svg=true)](https://ci.appveyor.com/project/gaborcsardi/debugme)
 [![](http://www.r-pkg.org/badges/version/debugme)](http://www.r-pkg.org/pkg/debugme)
 [![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/debugme)](http://www.r-pkg.org/pkg/debugme)
-
+[![Coverage Status](https://img.shields.io/codecov/c/github/gaborcsardi/debugme/master.svg)](https://codecov.io/github/gaborcsardi/debugme?branch=master)
 
 Specify debug messages as special string constants, and control debugging of
 packages via environment variables.
@@ -128,9 +128,9 @@ microbenchmark::microbenchmark(f1(), f2(), f3(), times = 10L)
 ```
 #> Unit: milliseconds
 #>  expr      min       lq     mean   median       uq      max neval cld
-#>  f1() 153.4889 173.5416 172.8059 174.4914 176.3528 177.5417    10   b
-#>  f2() 133.3437 134.5015 135.6928 135.6628 137.0485 138.1498    10  a 
-#>  f3() 133.5342 134.4767 135.3831 134.8393 136.7823 137.1044    10  a
+#>  f1() 146.3444 169.5297 170.0852 172.9510 174.8810 175.9833    10   b
+#>  f2() 125.9817 134.1500 134.6323 135.8692 136.1687 137.0728    10  a 
+#>  f3() 127.2357 134.3947 134.4547 135.9563 136.7923 137.3158    10  a
 ```
 
 ## License

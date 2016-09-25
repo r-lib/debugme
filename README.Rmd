@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 [![Windows Build status](https://ci.appveyor.com/api/projects/status/github/gaborcsardi/debugme?svg=true)](https://ci.appveyor.com/project/gaborcsardi/debugme)
 [![](http://www.r-pkg.org/badges/version/debugme)](http://www.r-pkg.org/pkg/debugme)
 [![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/debugme)](http://www.r-pkg.org/pkg/debugme)
-
+[![Coverage Status](https://img.shields.io/codecov/c/github/gaborcsardi/debugme/master.svg)](https://codecov.io/github/gaborcsardi/debugme?branch=master)
 
 Specify debug messages as special string constants, and control debugging of
 packages via environment variables.
