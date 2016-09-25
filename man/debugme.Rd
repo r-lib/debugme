@@ -36,7 +36,14 @@ Note that \code{debugme} checks for environment variables when it is starting
 up. Environment variables set after the package is loaded do not have
 any effect.
 
-Example debugme entries:\preformatted{"!DEBUG Start Shiny app"
+Example \code{debugme} entries:\preformatted{"!DEBUG Start Shiny app"
 }
+}
+\section{Redirecting the output}{
+
+
+If the \code{DEBUGME_OUTPUT_FILE} environment variable is set to
+a filename, then the output is written there instead of the standard
+output stream of the R process.
 }
 

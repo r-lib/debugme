@@ -20,10 +20,16 @@
 #' up. Environment variables set after the package is loaded do not have
 #' any effect.
 #'
-#' Example debugme entries:
+#' Example `debugme` entries:
 #' ```
 #' "!DEBUG Start Shiny app"
 #' ```
+#'
+#' @section Redirecting the output:
+#'
+#' If the `DEBUGME_OUTPUT_FILE` environment variable is set to
+#' a filename, then the output is written there instead of the standard
+#' output stream of the R process.
 #'
 #' @param env Environment to instument debugging in. Defaults to the
 #'   package environment of the calling package.
@@ -53,9 +59,20 @@ debug_data <- new.env()
 .onLoad <- function(libname, pkgname) {
   pkgs <- parse_env_vars()
   initialize_colors(pkgs)
+  initialize_output_file()
 }
 
 parse_env_vars <- function() {
   env <- Sys.getenv("DEBUGME")
   strsplit(env, ",")[[1]]
+}
+
+initialize_output_file <- function() {
+  out <- Sys.getenv("DEBUGME_OUTPUT_FILE", "")
+  if (out == "") {
+    debug_data$output_file <- NULL
+  } else {
+    debug_data$output_file <- out
+    debug_data$output_fd <- file(out, open = "a")
+  }
 }
