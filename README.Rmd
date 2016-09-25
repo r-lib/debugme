@@ -27,6 +27,39 @@ packages via environment variables.
 source("https://install-github.me/gaborcsardi/debugme")
 ```
 
+## Motivation
+
+```{r}
+debug <- function(msg) { cat(msg, file = "/dev/null", "\n") }
+f1 <- function() {
+  for (i in 1:100) {
+    debug("foobar")
+    Sys.sleep(.001)
+  }
+}
+```
+
+```{r}
+f2 <- function() {
+  for (i in 1:100) {
+    "!DEBUG foobar"
+    Sys.sleep(.001)
+  }
+}
+```
+
+```{r}
+f3 <- function() {
+  for (i in 1:100) {
+    Sys.sleep(.001)
+  }
+}
+```
+
+```{r}
+microbenchmark::microbenchmark(f1(), f2(), f3(), times = 10L)
+```
+
 ## Usage
 
 ```{r}

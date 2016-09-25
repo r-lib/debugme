@@ -9,4 +9,24 @@
 Specify debug messages as special string constants, and control
 debugging of packages via environment variables.
 }
+\details{
+To add debugging to your package, you need to
+\enumerate{
+\item Import the \code{debugme} package.
+\item Define an \code{.onLoad} function in your package, that calls \code{debugme}.
+An example:\preformatted{.onLoad <- function(libname, pathname) { debugme::debugme() }
+}
+}
+
+By default debugging is off. To turn on debugging, set the \code{DEBUGME}
+environment variable to the names of the packages you want to debug.
+Package names can be separated by commas.
+
+Note that \code{debugme} checks for environment variables when it is starting
+up. Environment variables set after the package is loaded do not have
+any effect.
+
+Example debugme entries:\preformatted{"!DEBUG Start Shiny app"
+}
+}
 
