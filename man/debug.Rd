@@ -12,6 +12,9 @@ debug(msg, pkg = environmentName(topenv(parent.frame())))
 \item{pkg}{Package name to which the message belongs. Detected
 automatically.}
 }
+\value{
+The original message.
+}
 \description{
 Normally this function is \emph{not} called directly, but debug strings
 are used. See \code{\link[=debugme]{debugme()}}.
