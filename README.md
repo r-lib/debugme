@@ -26,7 +26,7 @@ source("https://install-github.me/gaborcsardi/debugme")
 To use `debugme` in your package, import it, and then add the following
 `.onLoad` function to your package:
 ```r
-.onLoad <- function(libname, pathname) {
+.onLoad <- function(libname, pkgname) {
   debugme::debugme()
 }
 ```
@@ -128,9 +128,9 @@ microbenchmark::microbenchmark(f1(), f2(), f3(), times = 10L)
 ```
 #> Unit: milliseconds
 #>  expr      min       lq     mean   median       uq      max neval cld
-#>  f1() 165.0977 168.4705 172.4723 173.2522 174.7903 179.4671    10   b
-#>  f2() 126.8395 135.6430 135.4206 136.8091 137.5322 137.9230    10  a 
-#>  f3() 132.9437 136.9398 136.6285 137.2474 137.6469 137.7227    10  a
+#>  f1() 153.4889 173.5416 172.8059 174.4914 176.3528 177.5417    10   b
+#>  f2() 133.3437 134.5015 135.6928 135.6628 137.0485 138.1498    10  a 
+#>  f3() 133.5342 134.4767 135.3831 134.8393 136.7823 137.1044    10  a
 ```
 
 ## License

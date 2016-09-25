@@ -9,7 +9,7 @@
 #' 2. Define an `.onLoad` function in your package, that calls `debugme`.
 #'    An example:
 #'    ```r
-#'    .onLoad <- function(libname, pathname) { debugme::debugme() }
+#'    .onLoad <- function(libname, pkgname) { debugme::debugme() }
 #'    ```
 #'
 #' By default debugging is off. To turn on debugging, set the `DEBUGME`
@@ -47,7 +47,7 @@ debugme <- function(env = topenv(parent.frame()),
 
 debug_data <- new.env()
 
-.onLoad <- function(libname, pathname) {
+.onLoad <- function(libname, pkgname) {
   pkgs <- parse_env_vars()
   initialize_colors(pkgs)
 }

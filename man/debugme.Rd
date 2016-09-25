@@ -14,7 +14,7 @@ To add debugging to your package, you need to
 \enumerate{
 \item Import the \code{debugme} package.
 \item Define an \code{.onLoad} function in your package, that calls \code{debugme}.
-An example:\preformatted{.onLoad <- function(libname, pathname) { debugme::debugme() }
+An example:\preformatted{.onLoad <- function(libname, pkgname) { debugme::debugme() }
 }
 }
 

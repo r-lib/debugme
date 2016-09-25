@@ -32,7 +32,7 @@ source("https://install-github.me/gaborcsardi/debugme")
 To use `debugme` in your package, import it, and then add the following
 `.onLoad` function to your package:
 ```r
-.onLoad <- function(libname, pathname) {
+.onLoad <- function(libname, pkgname) {
   debugme::debugme()
 }
 ```
