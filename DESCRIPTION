@@ -7,7 +7,7 @@ Description: Specify debug messages as special string constants, and
     control debugging of packages via environment variables.
 License: MIT + file LICENSE
 LazyData: true
-URL: https://github.com/gaborcsardi/debugme
+URL: https://github.com/gaborcsardi/debugme#readme
 BugReports: https://github.com/gaborcsardi/debugme/issues
 RoxygenNote: 5.0.1.9000
 Roxygen: list(markdown = TRUE)
