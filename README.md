@@ -12,7 +12,8 @@
 [![Coverage Status](https://img.shields.io/codecov/c/github/gaborcsardi/debugme/master.svg)](https://codecov.io/github/gaborcsardi/debugme?branch=master)
 
 Specify debug messages as special string constants, and control debugging of
-packages via environment variables.
+packages via environment variables. This package was largely influenced by
+the [`debug` npm package](https://github.com/visionmedia/debug).
 
 ## Installation and Usage
 
