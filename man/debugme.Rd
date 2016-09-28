@@ -39,6 +39,25 @@ any effect.
 Example \code{debugme} entries:\preformatted{"!DEBUG Start Shiny app"
 }
 }
+\section{Dynamic debug messsages}{
+
+
+It is often desired that the debug messages contain values of R
+epxressions evaluated at runtime. For example, when starting a Shiny
+app, it is useful to also print out the path to the app. Similarly,
+when debugging an HTTP response, it is desired to log the HTTP status
+code.
+
+\code{debugme} allows embedding R code into the debug messages, within
+backticks. The code will be evaluated at runtime. Here are some
+examples:\preformatted{"!DEBUG Start Shiny app at `path`"
+"!DEBUG Got HTTP response `httr::status_code(reponse)`"
+}
+
+Note that parsing the debug strings for code is not very sophisticated
+currently, and you cannot embed backticks into the code itself.
+}
+
 \section{Redirecting the output}{
 
 

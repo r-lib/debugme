@@ -28,5 +28,6 @@ is_debug_string <- function(x) {
 }
 
 make_debug_call <- function(x) {
+  x <- handle_dynamic_code(x)
   as.call(list(quote(debugme::debug), x))
 }
