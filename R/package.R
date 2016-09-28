@@ -74,6 +74,7 @@ debugme <- function(env = topenv(parent.frame()),
 }
 
 debug_data <- new.env()
+debug_data$timestamp <- NULL
 
 .onLoad <- function(libname, pkgname) {
   pkgs <- parse_env_vars()

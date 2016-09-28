@@ -13,7 +13,7 @@
 
 debug <- function(msg, pkg = environmentName(topenv(parent.frame()))) {
   msg <- sub("^!DEBUG\\s+", "", msg)
-  full_msg <- paste0(pkg, " ", msg)
+  full_msg <- paste0(pkg, " ", get_timestamp(), msg)
   file <- get_output_file()
   style <- if (file == "") get_package_style(pkg) else identity
   cat(style(full_msg), "\n", file = file, sep = "", append = TRUE)
@@ -35,4 +35,18 @@ get_output_file <- function() {
       error = function(e) debug_data$output_file
     )
   }
+}
+
+get_timestamp <- function() {
+  current <- Sys.time()
+  res <- if (! is.null(debug_data$timestamp)) {
+    diff <- current - debug_data$timestamp
+    paste0("+", round(as.numeric(diff) * 1000), "ms ")
+  } else {
+    ""
+  }
+
+  debug_data$timestamp <- current
+
+  res
 }
