@@ -77,6 +77,10 @@ export DEBUGME=mypackage,otherpackage
 The debug messages will be prefixed by the package names, and assuming your
 terminal supports color, will be colored differently for each package.
 
+## Example
+
+![](/inst/screencast.gif)
+
 ## Motivation
 
 I have always wanted a debugging tool that
