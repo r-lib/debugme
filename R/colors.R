@@ -3,7 +3,7 @@
 
 initialize_colors <- function(debug_pkgs) {
 
-  cols <- c("green", "yellow", "blue", "magenta", "cyan", "white", "red",
+  cols <- c("green", "blue", "magenta", "cyan", "white", "yellow", "red",
             "silver")
 
   palette <- structure(
