@@ -7,3 +7,13 @@ test_that("debug prints", {
     "pkg foobar"
   )
 })
+
+test_that("debug retrieves variables for placeholders", {
+  x <- "bar"
+  y <- 1
+
+  expect_output(
+    debug("x: {{x}}, y: {{y}}", pkg = "pkg"),
+    "x: bar, y: 1"
+  )
+})
