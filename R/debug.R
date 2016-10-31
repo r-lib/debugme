@@ -12,7 +12,7 @@
 #' @export
 
 debug <- function(msg, pkg = environmentName(topenv(parent.frame()))) {
-  msg <- sub("^!DEBUG\\s+", "", msg)
+  msg <- nprintf(sub("^!DEBUG\\s+", "", msg), parent.frame())
   file <- get_output_file()
 
   time_stamp_mode <- if (file == "") "diff" else "stamp"
@@ -69,4 +69,26 @@ get_timestamp_stamp <- function() {
 
 format_date <- function(date) {
   format(as.POSIXlt(date, tz = "UTC"), "%Y-%m-%dT%H:%M:%S.%OS3+00:00")
+}
+
+# Failsafe templating. Retrieves variables from 'envir'.
+#
+# example:
+# envir = list2env(list(x = 1, y = 2, z = 3))
+# nprintf(fmt = "foo: {{x}}; bar: {{y}}; foobar: {{z}}; notfound: {{xxx}}", envir)
+#
+# nprintf("iris: {{class(iris)}} [{{nrow(iris)}}x{{ncol(iris)}}]")
+nprintf = function(fmt, envir = parent.frame()) {
+  placeholders <- gregexpr("\\{\\{[^}]+\\}\\}", fmt)
+  matches <- regmatches(fmt, placeholders)[[1L]]
+  if (length(matches) == 0L)
+    return(fmt)
+  matches = sub("^\\{\\{([^}]+)\\}\\}$", "\\1", matches)
+  values <- lapply(matches, function(expr) {
+    tryCatch(toString(eval(parse(text = expr), envir = envir)), error = function(e) sprintf("[%s]", expr))
+  })
+
+  # replace placeholders in fmt with evaluated expressions
+  regmatches(fmt, placeholders) <- list(values)
+  return(fmt)
 }
