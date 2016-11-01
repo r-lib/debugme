@@ -28,16 +28,7 @@ get_output_file <- function() {
   if (is.null(debug_data$output_file)) {
     ""
   } else {
-    tryCatch(
-      {
-        if (isOpen(debug_data$output_fd)) {
-          debug_data$output_fd
-        } else {
-          debug_data$output_fd <- file(debug_data$output_file, open = "a")
-        }
-      },
-      error = function(e) debug_data$output_file
-    )
+    debug_data$output_fd
   }
 }
 
