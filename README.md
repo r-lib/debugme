@@ -75,6 +75,18 @@ terminal supports color, will be colored differently for each package.
 
 ![](/inst/screencast.gif)
 
+## Dynamic code
+
+The `debugme` debug strings may contain R code between backticks.
+This code is evaluated at runtime, if debugging is turned on. A single
+debug string may contain multiple backticked code chunks:
+
+```r
+"!DEBUG x = `x`, y = `y`"
+if (x != y) {
+...
+```
+
 ## Motivation
 
 I have always wanted a debugging tool that
