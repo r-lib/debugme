@@ -19,7 +19,9 @@ test_that("format_date", {
 test_that("get_timestamp_stamp", {
 
   with_mock(
-    `base::Sys.time` = function() as.POSIXct("2016-11-01 02:33:54"),
+    `base::Sys.time` = function() {
+      structure(1477967634, class = c("POSIXct", "POSIXt"), tzone = "UTC")
+    },
     expect_equal(
       get_timestamp_stamp(),
       "2016-11-01T02:33:54.54.000+00:00 "
