@@ -68,7 +68,7 @@ debugme <- function(env = topenv(parent.frame()),
   objects <- ls(env, all.names = TRUE)
   funcs <- Filter(function(x) is.function(get(x, envir = env)), objects)
   Map(
-    function(x) assign(x, instrument(get(x, envir = env)), envir = env),
+    function(x) assign(x, instrument(get(x, envir = env), pkg), envir = env),
     funcs
   )
 }

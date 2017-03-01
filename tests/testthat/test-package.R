@@ -5,12 +5,10 @@ test_that(".onLoad", {
 
   val <- NULL
 
-  with_mock(
-    `debugme::initialize_colors` = function(pkgs) val <<- pkgs,
-    withr::with_envvar(
-      c("DEBUGME" = c("foo,bar")),
-      .onLoad()
-    )
+  mockery::stub(.onLoad, "initialize_colors", function(pkgs) val <<- pkgs)
+  withr::with_envvar(
+    c("DEBUGME" = c("foo,bar")),
+    .onLoad()
   )
   expect_identical(val, c("foo", "bar"))
 })
@@ -25,10 +23,8 @@ test_that("debugme", {
 
   expect_silent(debugme(env))
 
-  with_mock(
-    `base::match` = function(...) 1L,
-    debugme(env)
-  )
+  mockery::stub(debugme, "%in%", TRUE)
+  debugme(env)
 
   expect_silent(env$f1())
   expect_output(env$f2(), "debugme \\+[0-9]+ms foobar")

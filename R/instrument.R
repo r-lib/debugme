@@ -1,7 +1,6 @@
+instrument <- function(x, pkg) {
 
-instrument <- function(x) {
-
-  recurse <- function(y) { lapply(y, instrument) }
+  recurse <- function(y) { lapply(y, instrument, pkg) }
 
   if (is_debug_string(x)) {
     make_debug_call(x)
@@ -10,8 +9,8 @@ instrument <- function(x) {
   } else if (is.call(x)) {
     as.call(recurse(x))
   } else if (is.function(x)) {
-    formals(x) <- instrument(formals(x))
-    body(x) <- instrument(body(x))
+    formals(x) <- instrument(formals(x), pkg)
+    body(x) <- instrument(body(x), pkg)
     x
   } else if (is.pairlist(x)) {
     # Formal argument lists (when creating functions)
