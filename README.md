@@ -5,11 +5,11 @@
 
 > Debug R Packages
 
-[![Linux Build Status](https://travis-ci.org/gaborcsardi/debugme.svg?branch=master)](https://travis-ci.org/gaborcsardi/debugme)
-[![Windows Build status](https://ci.appveyor.com/api/projects/status/github/gaborcsardi/debugme?svg=true)](https://ci.appveyor.com/project/gaborcsardi/debugme)
+[![Linux Build Status](https://travis-ci.org/r-lib/debugme.svg?branch=master)](https://travis-ci.org/r-lib/debugme)
+[![Windows Build status](https://ci.appveyor.com/api/projects/status/github/r-lib/debugme?svg=true)](https://ci.appveyor.com/project/gaborcsardi/debugme)
 [![](http://www.r-pkg.org/badges/version/debugme)](http://www.r-pkg.org/pkg/debugme)
 [![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/debugme)](http://www.r-pkg.org/pkg/debugme)
-[![Coverage Status](https://img.shields.io/codecov/c/github/gaborcsardi/debugme/master.svg)](https://codecov.io/github/gaborcsardi/debugme?branch=master)
+[![Coverage Status](https://img.shields.io/codecov/c/github/r-lib/debugme/master.svg)](https://codecov.io/github/r-lib/debugme?branch=master)
 
 Specify debug messages as special string constants, and control debugging of
 packages via environment variables. This package was largely influenced by
@@ -21,7 +21,7 @@ Install the package from GitHub:
 
 
 ```r
-source("https://install-github.me/gaborcsardi/debugme")
+source("https://install-github.me/r-lib/debugme")
 ```
 
 To use `debugme` in your package, import it, and then add the following
