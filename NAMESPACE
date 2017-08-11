@@ -3,4 +3,5 @@
 export(debug)
 export(debugme)
 importFrom(crayon,make_style)
+importFrom(data.table,address)
 importFrom(grDevices,colors)

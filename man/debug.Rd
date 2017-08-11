@@ -16,7 +16,7 @@ automatically.}
 The original message.
 }
 \description{
-Normally this function is \emph{not} called directly, but debug strings
-are used. See \code{\link[=debugme]{debugme()}}.
+Normally this function is *not* called directly, but debug strings
+are used. See [debugme()].
 }
 

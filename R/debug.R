@@ -12,17 +12,54 @@
 #' @export
 
 debug <- function(msg, pkg = environmentName(topenv(parent.frame()))) {
+
+  level <- update_debug_call_stack_and_compute_level()
+
   msg <- sub("^!DEBUG\\s+", "", msg)
   file <- get_output_file()
 
   time_stamp_mode <- if (file == "") "diff" else "stamp"
-  full_msg <- paste0(pkg, " ", get_timestamp(time_stamp_mode), msg)
+
+  indent <- ''
+  if (level > 0) {
+    indent <- paste0(c(rep(' ', (level - 1) * 2), '+-'), collapse = '')
+  }
+
+  full_msg <- paste0(pkg, " ", indent,  msg, " ", get_timestamp(time_stamp_mode))
 
   style <- if (file == "") get_package_style(pkg) else identity
   cat(style(full_msg), "\n", file = file, sep = "", append = TRUE)
 
   msg
 }
+
+#' @importFrom data.table address
+update_debug_call_stack_and_compute_level <- function() {
+  # -2L for update_debug_call_stack_and_compute_level() and debug() calls
+  nframe <- sys.nframe() - 2L
+  level <- 0
+  frames <- sys.frames()
+
+  for (call in debug_data$debug_call_stack) {
+    if (call$nframe  < nframe &&
+      call$id == address(frames[[call$nframe]]))
+    {
+      level <- call$level + 1L
+      break
+    }
+  }
+
+  call <- list(nframe = nframe, id = address(frames[[nframe]]), level = level)
+
+  if (level > 0) { # found
+    debug_data$debug_call_stack <- c(list(call), debug_data$debug_call_stack)
+  } else { # new stack
+    debug_data$debug_call_stack <- list(call)
+  }
+
+  level
+}
+
 
 get_output_file <- function() {
   if (is.null(debug_data$output_file)) {
