@@ -33,23 +33,29 @@ debug <- function(msg, pkg = environmentName(topenv(parent.frame()))) {
   msg
 }
 
-#' @importFrom data.table address
+# thanks to https://stackoverflow.com/questions/18900955/get-environment-identifier-in-r
+#' @importFrom utils capture.output
+env_address <- function(env) {
+  sub('<environment: (.*)>', '\\1', capture.output(env))
+}
+
+
 update_debug_call_stack_and_compute_level <- function() {
   # -2L for update_debug_call_stack_and_compute_level() and debug() calls
   nframe <- sys.nframe() - 2L
-  level <- 0
+  level <- 0L
   frames <- sys.frames()
 
   for (call in debug_data$debug_call_stack) {
     if (call$nframe  < nframe &&
-      call$id == address(frames[[call$nframe]]))
+      call$id == env_address(frames[[call$nframe]]))
     {
       level <- call$level + 1L
       break
     }
   }
 
-  call <- list(nframe = nframe, id = address(frames[[nframe]]), level = level)
+  call <- list(nframe = nframe, id = env_address(frames[[nframe]]), level = level)
 
   if (level > 0) { # found
     debug_data$debug_call_stack <- c(list(call), debug_data$debug_call_stack)
