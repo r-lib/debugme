@@ -29,7 +29,6 @@ test_that("debug indent", {
   expect_match(out, 'debugme f0.2', fixed = TRUE)
 })
 
-
 test_that("debug prints", {
   expect_output(
     debug("foobar", pkg = "pkg"),
