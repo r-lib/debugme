@@ -18,18 +18,12 @@ test_that("format_date", {
 
 test_that("get_timestamp_stamp", {
 
-  with_mock(
-    `base::Sys.time` = function() {
-      structure(1477967634, class = c("POSIXct", "POSIXt"), tzone = "UTC")
-    },
-    expect_equal(
-      get_timestamp_stamp(),
-      "2016-11-01T02:33:54.54.000+00:00 "
-    ),
-    expect_equal(
-      get_timestamp(mode = "stamp"),
-      "2016-11-01T02:33:54.54.000+00:00 "
-    )
+  mytime <- structure(1477967634, class = c("POSIXct", "POSIXt"),
+                      tzone = "UTC")
+  mockery::stub(get_timestamp_stamp, "Sys.time", mytime)
+  expect_equal(
+    get_timestamp_stamp(),
+    "2016-11-01T02:33:54.54.000+00:00 "
   )
 })
 
