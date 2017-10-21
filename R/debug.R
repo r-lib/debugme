@@ -15,7 +15,13 @@ debug <- function(msg, pkg = environmentName(topenv(parent.frame()))) {
 
   level <- update_debug_call_stack_and_compute_level()
 
-  msg <- sub("^!DEBUG\\s+", "", msg)
+  pkg_level <- get_package_debug_level(pkg)
+  msg_level <- get_debug_levels(msg)
+  if (!is.na(pkg_level) && pkg_level > 0 && pkg_level < msg_level) {
+    return(msg)
+  }
+
+  msg <- sub("^!+DEBUG\\s+", "", msg)
   file <- get_output_file()
 
   time_stamp_mode <- if (file == "") "diff" else "stamp"

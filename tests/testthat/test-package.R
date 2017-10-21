@@ -23,7 +23,7 @@ test_that("debugme", {
 
   expect_silent(debugme(env))
 
-  mockery::stub(debugme, "%in%", TRUE)
+  mockery::stub(debugme, "is_debugged", TRUE)
   debugme(env)
 
   expect_silent(env$f1())

@@ -20,7 +20,7 @@ test_that("color palette is fine", {
 
 test_that("get a package style", {
 
-  mockery::stub(get_package_style, "%in%", function(...) TRUE)
+  mockery::stub(get_package_style, "is_debugged", function(...) TRUE)
   mockery::stub(get_package_style, "make_style", function(x) substitute(x))
   ret <- get_package_style("pkg")
   expect_equal(ret, quote(debug_data$palette[pkg]))

@@ -58,6 +58,15 @@ Note that parsing the debug strings for code is not very sophisticated
 currently, and you cannot embed backticks into the code itself.
 }
 
+\section{Log levels}{
+
+To organize the log messages into log levels, you can start the
+\code{!DEBUG} token with multiple \code{!} characters. You can then select the
+desired level of logging via \code{!} characters before the package name
+in the \code{DEBUGME} environment variable. E.g. \code{DEBUGME=!!mypackage} means
+that only debug messages with two or less \code{!} marks will be printed.
+}
+
 \section{Redirecting the output}{
 
 

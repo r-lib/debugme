@@ -20,7 +20,7 @@ initialize_colors <- function(debug_pkgs) {
 #' @importFrom crayon make_style
 
 get_package_style <- function(pkg) {
-  if (pkg %in% names(debug_data$palette)) {
+  if (is_debugged(pkg)) {
     make_style(debug_data$palette[pkg])
   } else {
     identity

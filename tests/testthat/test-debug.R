@@ -29,6 +29,16 @@ test_that("debug indent", {
   expect_match(out, 'debugme f0.2', fixed = TRUE)
 })
 
+test_that("debug levels", {
+
+  mockery::stub(debug, "get_package_debug_level", 1)
+  env <- new.env()
+  env$f1 <- function() debug("!DEBUG foobar")
+  env$f2 <- function() debug("!!DEBUG baz")
+  expect_output(env$f1(), "foobar")
+  expect_silent(env$f2())
+})
+
 test_that("debug prints", {
   expect_output(
     debug("foobar", pkg = "pkg"),
@@ -72,6 +82,3 @@ test_that("debugging to a file", {
   expect_match(log[1], "^foobar hello world!")
   expect_match(log[2], "^foo hello again!")
 })
-
-
-

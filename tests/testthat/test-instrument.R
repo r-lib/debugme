@@ -45,3 +45,18 @@ test_that("unknown objects are not touched", {
   e <- new.env()
   expect_equal(format(e), format(instrument(e)))
 })
+
+test_that("debug levels", {
+  f <- function() {
+    for (i in 1:1) {
+      if (TRUE) {
+        "!DEBUG foobar1"
+      }
+      "!!DEBUG foobar2"
+    }
+    "!!!DEBUG foobar3"
+  }
+  f2 <- instrument(f)
+
+  expect_output(f2(), "foobar1.*foobar2.*foobar3")
+})

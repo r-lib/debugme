@@ -44,6 +44,13 @@
 #' Note that parsing the debug strings for code is not very sophisticated
 #' currently, and you cannot embed backticks into the code itself.
 #'
+#' @section Log levels:
+#' To organize the log messages into log levels, you can start the
+#' `!DEBUG` token with multiple `!` characters. You can then select the
+#' desired level of logging via `!` characters before the package name
+#' in the `DEBUGME` environment variable. E.g. `DEBUGME=!!mypackage` means
+#' that only debug messages with two or less `!` marks will be printed.
+#'
 #' @section Redirecting the output:
 #'
 #' If the `DEBUGME_OUTPUT_FILE` environment variable is set to
@@ -62,8 +69,7 @@
 debugme <- function(env = topenv(parent.frame()),
                     pkg = environmentName(env)) {
 
-  ## Are we debugging this package?
-  if (! pkg %in% names(debug_data$palette)) return()
+  if (!is_debugged(pkg)) return()
 
   objects <- ls(env, all.names = TRUE)
   funcs <- Filter(function(x) is.function(get(x, envir = env)), objects)
@@ -73,6 +79,10 @@ debugme <- function(env = topenv(parent.frame()),
   )
 }
 
+is_debugged <- function(pkg) {
+  pkg %in% names(debug_data$palette)
+}
+
 debug_data <- new.env()
 debug_data$timestamp <- NULL
 debug_data$debug_call_stack <- NULL
@@ -80,13 +90,30 @@ debug_data$debug_call_stack <- NULL
 
 .onLoad <- function(libname, pkgname) {
   pkgs <- parse_env_vars()
-  initialize_colors(pkgs)
+  pkgnames <- sub("^!+", "", pkgs)
+  dbglevels <- get_debug_levels(pkgs)
+  initialize_colors(pkgnames)
+  initialize_debug_levels(pkgnames, dbglevels)
   initialize_output_file()
+}
+
+get_debug_levels <- function(x) {
+  m <- regexpr("^(!+)", x)
+  len <- attr(m, "match.length")
+  ifelse(len < 0, 0, len)
 }
 
 parse_env_vars <- function() {
   env <- Sys.getenv("DEBUGME")
   strsplit(env, ",")[[1]]
+}
+
+initialize_debug_levels <- function(pkgnames, dbglevels) {
+  debug_data$debug_levels <- structure(dbglevels, names = pkgnames)
+}
+
+get_package_debug_level <- function(pkg) {
+  debug_data$debug_levels[pkg]
 }
 
 initialize_output_file <- function() {
