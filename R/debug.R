@@ -25,7 +25,8 @@ debug <- function(msg, pkg = environmentName(topenv(parent.frame()))) {
     indent <- paste0(c(rep(' ', (level - 1) * 2), '+-'), collapse = '')
   }
 
-  full_msg <- paste0(pkg, " ", indent,  msg, " ", get_timestamp(time_stamp_mode))
+  full_msg <- paste0(pkg, " ", indent,  msg, " ",
+                     get_timestamp(time_stamp_mode))
 
   style <- if (file == "") get_package_style(pkg) else identity
   cat(style(full_msg), "\n", file = file, sep = "", append = TRUE)
@@ -37,7 +38,6 @@ env_address <- function(env) {
   sub('<environment: (.*)>', '\\1', format(env))
 }
 
-
 update_debug_call_stack_and_compute_level <- function() {
   # -2L for update_debug_call_stack_and_compute_level() and debug() calls
   nframe <- sys.nframe() - 2L
@@ -45,19 +45,23 @@ update_debug_call_stack_and_compute_level <- function() {
   frames <- sys.frames()
 
   for (call in debug_data$debug_call_stack) {
-    if (call$nframe  < nframe &&
-      call$id == env_address(frames[[call$nframe]]))
-    {
+    if (call$nframe < nframe &&
+      call$id == env_address(frames[[call$nframe]])) {
       level <- call$level + 1L
       break
     }
   }
 
-  call <- list(nframe = nframe, id = env_address(frames[[nframe]]), level = level)
+  call <- list(
+    nframe = nframe,
+    id = env_address(frames[[nframe]]),
+    level = level)
 
-  if (level > 0) { # found
-    debug_data$debug_call_stack <- c(list(call), debug_data$debug_call_stack)
-  } else { # new stack
+  if (level > 0) {                      # found
+    debug_data$debug_call_stack <-
+      c(list(call), debug_data$debug_call_stack)
+
+  } else {                              # new stack
     debug_data$debug_call_stack <- list(call)
   }
 
