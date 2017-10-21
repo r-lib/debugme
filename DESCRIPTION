@@ -9,7 +9,7 @@ License: MIT + file LICENSE
 LazyData: true
 URL: https://github.com/r-lib/debugme#readme
 BugReports: https://github.com/r-lib/debugme/issues
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1
 Roxygen: list(markdown = TRUE)
 Imports:
     crayon,
