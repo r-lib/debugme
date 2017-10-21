@@ -1,6 +1,34 @@
 
 context("debug")
 
+
+test_that("debug indent", {
+  f1 <- function() {
+      debug("f1")
+      f2()
+  }
+
+  f2 <- function() {
+      debug("f2.1")
+      f3()
+      debug("f2.2")
+  }
+  f3 <- function() {
+      debug("f3")
+  }
+
+  out <- capture_output(eval({ debug("f0.1"); f1(); f2(); debug("f0.2")}))
+
+  expect_match(out, 'debugme f0.1', fixed = TRUE)
+  expect_match(out, 'debugme +-f1', fixed = TRUE)
+  expect_match(out, 'debugme   +-f2.1', fixed = TRUE)
+  expect_match(out, 'debugme     +-f3', fixed = TRUE)
+  expect_match(out, 'debugme   +-f2.2', fixed = TRUE)
+  expect_match(out, 'debugme +-f2.1', fixed = TRUE)
+  expect_match(out, 'debugme +-f2.2', fixed = TRUE)
+  expect_match(out, 'debugme f0.2', fixed = TRUE)
+})
+
 test_that("debug prints", {
   expect_output(
     debug("foobar", pkg = "pkg"),
@@ -41,6 +69,9 @@ test_that("debugging to a file", {
   debug("hello again!", "foo")
 
   log <- readLines(tmp)
-  expect_match(log[1], "^foobar .*hello world!$")
-  expect_match(log[2], "^foo .*hello again!$")
+  expect_match(log[1], "^foobar hello world!")
+  expect_match(log[2], "^foo hello again!")
 })
+
+
+

@@ -11,7 +11,7 @@ handle_dynamic_code(str)
 }
 \value{
 A language expression or a string, depending on whether the
-string has dynamic code.
+  string has dynamic code.
 }
 \description{
 Substrings within backticks will be interpreted as code.

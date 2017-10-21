@@ -27,7 +27,7 @@ test_that("debugme", {
   debugme(env)
 
   expect_silent(env$f1())
-  expect_output(env$f2(), "debugme \\+[0-9]+ms foobar")
+  expect_output(env$f2(), "debugme foobar \\+[0-9]+ms")
   expect_identical(env$notme, "!DEBUG nonono")
-  expect_output(env$.hidden(), "debugme \\+[0-9]+ms foobar2")
+  expect_output(env$.hidden(), "debugme foobar2 \\+[0-9]+ms")
 })
