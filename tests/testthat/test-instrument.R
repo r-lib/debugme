@@ -33,3 +33,10 @@ test_that("positives", {
     expect_output(f2(), "foobar1")
   }
 })
+
+test_that("functions without arguments, #17", {
+
+  f <- function() { "!DEBUG foo"; 'noarg' }
+  f2 <- instrument(f)
+  expect_output(instrument(f2()), "foo")
+})

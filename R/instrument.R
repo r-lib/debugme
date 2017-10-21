@@ -9,7 +9,7 @@ instrument <- function(x, pkg) {
   } else if (is.call(x)) {
     as.call(recurse(x))
   } else if (is.function(x)) {
-    formals(x) <- instrument(formals(x), pkg)
+    formals(x) <- as.list(instrument(formals(x), pkg))
     body(x) <- instrument(body(x), pkg)
     x
   } else if (is.pairlist(x)) {
