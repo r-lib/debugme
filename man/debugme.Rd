@@ -21,38 +21,42 @@ debugging of packages via environment variables.
 }
 \details{
 To add debugging to your package, you need to
-\enumerate{
-\item Import the \code{debugme} package.
-\item Define an \code{.onLoad} function in your package, that calls \code{debugme}.
-An example:\preformatted{.onLoad <- function(libname, pkgname) { debugme::debugme() }
-}
-}
+1. Import the `debugme` package.
+2. Define an `.onLoad` function in your package, that calls `debugme`.
+   An example:
+   ```r
+   .onLoad <- function(libname, pkgname) { debugme::debugme() }
+   ```
 
-By default debugging is off. To turn on debugging, set the \code{DEBUGME}
+By default debugging is off. To turn on debugging, set the `DEBUGME`
 environment variable to the names of the packages you want to debug.
 Package names can be separated by commas.
 
-Note that \code{debugme} checks for environment variables when it is starting
+Note that `debugme` checks for environment variables when it is starting
 up. Environment variables set after the package is loaded do not have
 any effect.
 
-Example \code{debugme} entries:\preformatted{"!DEBUG Start Shiny app"
-}
+Example `debugme` entries:
+```
+"!DEBUG Start Shiny app"
+```
 }
 \section{Dynamic debug messsages}{
 
 
 It is often desired that the debug messages contain values of R
-epxressions evaluated at runtime. For example, when starting a Shiny
+expressions evaluated at runtime. For example, when starting a Shiny
 app, it is useful to also print out the path to the app. Similarly,
 when debugging an HTTP response, it is desired to log the HTTP status
 code.
 
-\code{debugme} allows embedding R code into the debug messages, within
+`debugme` allows embedding R code into the debug messages, within
 backticks. The code will be evaluated at runtime. Here are some
-examples:\preformatted{"!DEBUG Start Shiny app at `path`"
+examples:
+```
+"!DEBUG Start Shiny app at `path`"
 "!DEBUG Got HTTP response `httr::status_code(reponse)`"
-}
+```
 
 Note that parsing the debug strings for code is not very sophisticated
 currently, and you cannot embed backticks into the code itself.
@@ -61,7 +65,7 @@ currently, and you cannot embed backticks into the code itself.
 \section{Redirecting the output}{
 
 
-If the \code{DEBUGME_OUTPUT_FILE} environment variable is set to
+If the `DEBUGME_OUTPUT_FILE` environment variable is set to
 a filename, then the output is written there instead of the standard
 output stream of the R process.
 }
