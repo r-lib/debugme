@@ -40,3 +40,8 @@ test_that("functions without arguments, #17", {
   f2 <- instrument(f)
   expect_output(instrument(f2()), "foo")
 })
+
+test_that("unknown objects are not touched", {
+  e <- new.env()
+  expect_equal(format(e), format(instrument(e)))
+})

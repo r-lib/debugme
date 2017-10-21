@@ -17,6 +17,7 @@ instrument <- function(x, pkg) {
     as.pairlist(recurse(x))
   } else {
     ## Unknown language type, we just silently ignore
+    x
   }
 }
 
