@@ -73,5 +73,10 @@ that only debug messages with two or less \code{!} marks will be printed.
 If the \code{DEBUGME_OUTPUT_FILE} environment variable is set to
 a filename, then the output is written there instead of the standard
 output stream of the R process.
+
+If \code{DEBUGME_OUTPUT_FILE} is not set, but \code{DEBUGME_OUTPUT_DIR} is, then
+a log file is created there, and the name of the file will contain
+the process id. This is is useful for logging from several parallel R
+processes.
 }
 

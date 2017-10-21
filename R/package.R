@@ -57,6 +57,11 @@
 #' a filename, then the output is written there instead of the standard
 #' output stream of the R process.
 #'
+#' If `DEBUGME_OUTPUT_FILE` is not set, but `DEBUGME_OUTPUT_DIR` is, then
+#' a log file is created there, and the name of the file will contain
+#' the process id. This is is useful for logging from several parallel R
+#' processes.
+#'
 #' @param env Environment to instument debugging in. Defaults to the
 #'   package environment of the calling package.
 #' @param pkg Name of the calling package. The default should be fine
@@ -118,10 +123,15 @@ get_package_debug_level <- function(pkg) {
 
 initialize_output_file <- function() {
   out <- Sys.getenv("DEBUGME_OUTPUT_FILE", "")
-  if (out == "") {
-    debug_data$output_file <- NULL
-  } else {
+  dir <- Sys.getenv("DEBUGME_OUTPUT_DIR", "")
+  if (out != "") {
     debug_data$output_file <- out
     debug_data$output_fd <- file(out, open = "a")
+  } else if (dir != "") {
+    out <- file.path(dir, paste0("debugme-", Sys.getpid(), ".log"))
+    debug_data$output_file <- out
+    debug_data$output_fd <- file(out, open = "a")
+  } else {
+    debug_data$output_file <- NULL
   }
 }

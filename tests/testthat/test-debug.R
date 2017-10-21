@@ -82,3 +82,22 @@ test_that("debugging to a file", {
   expect_match(log[1], "^foobar hello world!")
   expect_match(log[2], "^foo hello again!")
 })
+
+test_that("debugging to a directory", {
+  tmp <- tempfile()
+  dir.create(tmp)
+  on.exit(unlink(tmp, recursive = TRUE), add = TRUE)
+
+  on.exit(initialize_output_file(), add = TRUE)
+  on.exit(try(close(debug_data$output_fd), silent = TRUE), add = TRUE)
+
+  withr::with_envvar(c(DEBUGME_OUTPUT_DIR = tmp), {
+    initialize_output_file()
+  })
+  debug("hello world!", "foobar")
+  debug("hello again!", "foo")
+
+  log <- readLines(file.path(tmp, paste0("debugme-", Sys.getpid(), ".log")))
+  expect_match(log[1], "^foobar hello world!")
+  expect_match(log[2], "^foo hello again!")
+})
