@@ -13,8 +13,7 @@ RoxygenNote: 5.0.1
 Roxygen: list(markdown = TRUE)
 Imports:
     crayon,
-    grDevices,
-    utils
+    grDevices
 Suggests:
     covr,
     mockery,

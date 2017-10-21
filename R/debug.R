@@ -33,10 +33,8 @@ debug <- function(msg, pkg = environmentName(topenv(parent.frame()))) {
   msg
 }
 
-# thanks to https://stackoverflow.com/questions/18900955/get-environment-identifier-in-r
-#' @importFrom utils capture.output
 env_address <- function(env) {
-  sub('<environment: (.*)>', '\\1', capture.output(env))
+  sub('<environment: (.*)>', '\\1', format(env))
 }
 
 
