@@ -27,6 +27,20 @@ test_that("debug indent", {
   expect_match(out, 'debugme +-f2.1', fixed = TRUE)
   expect_match(out, 'debugme +-f2.2', fixed = TRUE)
   expect_match(out, 'debugme f0.2', fixed = TRUE)
+
+  out <- withr::with_envvar(
+    c(DEBUGME_SHOW_STACK = "no"),
+    capture_output(eval({ debug("f0.1"); f1(); f2(); debug("f0.2")}))
+  )
+
+  expect_match(out, 'debugme f0.1', fixed = TRUE)
+  expect_match(out, 'debugme f1', fixed = TRUE)
+  expect_match(out, 'debugme f2.1', fixed = TRUE)
+  expect_match(out, 'debugme f3', fixed = TRUE)
+  expect_match(out, 'debugme f2.2', fixed = TRUE)
+  expect_match(out, 'debugme f2.1', fixed = TRUE)
+  expect_match(out, 'debugme f2.2', fixed = TRUE)
+  expect_match(out, 'debugme f0.2', fixed = TRUE)
 })
 
 test_that("debug levels", {

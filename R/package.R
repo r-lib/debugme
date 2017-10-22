@@ -51,6 +51,12 @@
 #' in the `DEBUGME` environment variable. E.g. `DEBUGME=!!mypackage` means
 #' that only debug messages with two or less `!` marks will be printed.
 #'
+#' @section Debug stack:
+#' By default `debugme` prints the *debug stack* at the beginning of
+#' the debug messages. The debug stack contains the functions in the call
+#' stack that have (and emit) debug messages. To suppress printing the call
+#' stack set the `DEBUGME_SHOW_STACK` environment variable to `no`.
+#'
 #' @section Redirecting the output:
 #'
 #' If the `DEBUGME_OUTPUT_FILE` environment variable is set to

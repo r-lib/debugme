@@ -13,8 +13,6 @@
 
 debug <- function(msg, pkg = environmentName(topenv(parent.frame()))) {
 
-  level <- update_debug_call_stack_and_compute_level()
-
   pkg_level <- get_package_debug_level(pkg)
   msg_level <- get_debug_levels(msg)
   if (!is.na(pkg_level) && pkg_level > 0 && pkg_level < msg_level) {
@@ -26,12 +24,18 @@ debug <- function(msg, pkg = environmentName(topenv(parent.frame()))) {
 
   time_stamp_mode <- if (file == "") "diff" else "stamp"
 
-  indent <- ''
-  if (level > 0) {
-    indent <- paste0(c(rep(' ', (level - 1) * 2), '+-'), collapse = '')
+  indent <- " "
+
+  if (tolower(Sys.getenv("DEBUGME_SHOW_STACK", "yes")) != "no") {
+    level <- update_debug_call_stack_and_compute_level()
+    if (level > 0) {
+      indent <- paste0(
+        c(" " , rep(" ", (level - 1) * 2), "+-"),
+        collapse = "")
+    }
   }
 
-  full_msg <- paste0(pkg, " ", indent,  msg, " ",
+  full_msg <- paste0(pkg, indent,  msg, " ",
                      get_timestamp(time_stamp_mode))
 
   style <- if (file == "") get_package_style(pkg) else identity
@@ -41,7 +45,7 @@ debug <- function(msg, pkg = environmentName(topenv(parent.frame()))) {
 }
 
 env_address <- function(env) {
-  sub('<environment: (.*)>', '\\1', format(env))
+  sub("<environment: (.*)>", "\\1", format(env))
 }
 
 update_debug_call_stack_and_compute_level <- function() {

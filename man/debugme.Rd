@@ -67,6 +67,14 @@ in the \code{DEBUGME} environment variable. E.g. \code{DEBUGME=!!mypackage} mean
 that only debug messages with two or less \code{!} marks will be printed.
 }
 
+\section{Debug stack}{
+
+By default \code{debugme} prints the \emph{debug stack} at the beginning of
+the debug messages. The debug stack contains the functions in the call
+stack that have (and emit) debug messages. To suppress printing the call
+stack set the \code{DEBUGME_SHOW_STACK} environment variable to \code{no}.
+}
+
 \section{Redirecting the output}{
 
 
