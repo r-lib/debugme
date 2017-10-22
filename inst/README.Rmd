@@ -1,5 +1,12 @@
 
-
+```{r, setup, echo = FALSE, message = FALSE}
+knitr::opts_chunk$set(
+  comment = "#>",
+  tidy = FALSE,
+  error = FALSE,
+  fig.width = 8,
+  fig.height = 8)
+```
 
 # debugme
 
@@ -19,8 +26,7 @@ the [`debug` npm package](https://github.com/visionmedia/debug).
 
 Install the package from GitHub:
 
-
-```r
+```{r eval = FALSE}
 source("https://install-github.me/r-lib/debugme")
 ```
 
@@ -73,7 +79,7 @@ terminal supports color, will be colored differently for each package.
 
 ## Example
 
-![](/inst/screencast.gif)
+![](inst/screencast.gif)
 
 ## Dynamic code
 
@@ -107,8 +113,7 @@ performance penalty when debugging is off.
 Here is a simple comparison between debugging with a function call, `f1()`,
 debugging with debug strings, `f2()` and no debugging at all.
 
-
-```r
+```{r}
 debug <- function(msg) { cat(msg, file = "/dev/null", "\n") }
 f1 <- function() {
   for (i in 1:100) {
@@ -118,8 +123,7 @@ f1 <- function() {
 }
 ```
 
-
-```r
+```{r}
 f2 <- function() {
   for (i in 1:100) {
     "!DEBUG foobar"
@@ -128,8 +132,7 @@ f2 <- function() {
 }
 ```
 
-
-```r
+```{r}
 f3 <- function() {
   for (i in 1:100) {
     Sys.sleep(.001)
@@ -137,17 +140,8 @@ f3 <- function() {
 }
 ```
 
-
-```r
+```{r}
 microbenchmark::microbenchmark(f1(), f2(), f3(), times = 10L)
-```
-
-```
-#> Unit: milliseconds
-#>  expr      min       lq     mean   median       uq      max neval cld
-#>  f1() 146.3444 169.5297 170.0852 172.9510 174.8810 175.9833    10   b
-#>  f2() 125.9817 134.1500 134.6323 135.8692 136.1687 137.0728    10  a 
-#>  f3() 127.2357 134.3947 134.4547 135.9563 136.7923 137.3158    10  a
 ```
 
 ## License
