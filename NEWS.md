@@ -1,4 +1,17 @@
 
+# 1.1.0
+
+* Support functions in lists and environments. In particular, this
+  fixes debugging R6 methods (#15)
+
+* Support `DEBUGME_OUTPUT_DIR` (#19)
+
+* Support log levels (#12)
+
+* Fix functions without arguments (#17)
+
+* Print the debug stack, optionally (@kforner, #21)
+
 # 1.0.2
 
 * Do not us `testthat::with_mock`, it interferes with the JIT that is
