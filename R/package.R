@@ -76,11 +76,16 @@ debugme <- function(env = topenv(parent.frame()),
 
   if (!is_debugged(pkg)) return()
 
+  should_instrument <- function(x) {
+    obj <- get(x, envir = env)
+    is.function(obj) || is.environment(obj)
+  }
+
   objects <- ls(env, all.names = TRUE)
-  funcs <- Filter(function(x) is.function(get(x, envir = env)), objects)
+  dbg_objects <- Filter(should_instrument, objects)
   Map(
     function(x) assign(x, instrument(get(x, envir = env), pkg), envir = env),
-    funcs
+    dbg_objects
   )
 }
 

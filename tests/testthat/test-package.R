@@ -31,3 +31,42 @@ test_that("debugme", {
   expect_identical(env$notme, "!DEBUG nonono")
   expect_output(env$.hidden(), "debugme foobar2 \\+[0-9]+ms")
 })
+
+test_that("instrument environments", {
+
+  env <- new.env()
+  env$env <- new.env()
+  env$env$fun <- function() { "!DEBUG coocoo" }
+
+  mockery::stub(debugme, "is_debugged", TRUE)
+  expect_silent(debugme(env))
+
+  expect_output(env$env$fun(), "coocoo")
+})
+
+test_that("instrument R6 classes", {
+
+  env <- new.env()
+  env$class <- R6::R6Class(
+    "foobar",
+    public = list(
+      initialize = function(name) {
+        "!DEBUG creating `name`"
+        private$name <- name
+      },
+      hello = function() {
+        "!DEBUG hello `private$name`"
+        paste("Hello", private$name)
+      }
+    ),
+    private = list(
+      name = NULL
+    )
+  )
+
+  mockery::stub(debugme, "is_debugged", TRUE)
+  expect_silent(debugme(env))
+
+  expect_output(x <- env$class$new("mrx"), "debugme.*creating mrx")
+  expect_output(x$hello(), "debugme.*hello mrx")
+})
