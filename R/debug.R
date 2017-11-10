@@ -19,7 +19,7 @@ debug <- function(msg, pkg = environmentName(topenv(parent.frame()))) {
     return(msg)
   }
 
-  msg <- sub("^!+DEBUG\\s+", "", msg)
+  msg <- sub("^!+\\s*", "", msg)
   file <- get_output_file()
 
   time_stamp_mode <- if (file == "") "diff" else "stamp"

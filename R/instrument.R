@@ -45,6 +45,7 @@ is_debug_string <- function(x) {
 }
 
 make_debug_call <- function(x) {
+  x <- sub("^(!+)DEBUG", "\\1", x, perl = TRUE)
   x <- handle_dynamic_code(x)
   as.call(list(quote(debugme::debug), x))
 }
