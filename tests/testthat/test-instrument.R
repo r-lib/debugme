@@ -60,3 +60,11 @@ test_that("debug levels", {
 
   expect_output(f2(), "foobar1.*foobar2.*foobar3")
 })
+
+test_that("function with attributes", {
+  f <- function() {}
+  attr(f, "foo") <- "bar"
+
+  f2 <- instrument(f)
+  expect_identical(attributes(f), attributes(f2))
+})
