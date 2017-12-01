@@ -18,9 +18,11 @@ instrument <- function(x, pkg) {
     } else if (is.call(x)) {
       as.call(recurse(x))
     } else if (is.function(x)) {
-      formals(x) <- as.list(instrument0(formals(x), pkg))
-      body(x) <- instrument0(body(x), pkg)
-      x
+      nx <- x
+      formals(nx) <- as.list(instrument0(formals(x), pkg))
+      body(nx) <- instrument0(body(x), pkg)
+      attributes(nx) <- instrument(attributes(x), pkg)
+      nx
     } else if (is.pairlist(x)) {
       ## Formal argument lists (when creating functions)
       as.pairlist(recurse(x))
