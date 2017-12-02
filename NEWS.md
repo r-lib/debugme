@@ -1,6 +1,9 @@
 
 # 1.1.0.9000
 
+* Make sure code is not instrumented multiple times, which
+  can happen if environments are referenced from multiple places
+
 * Fix instrumenting functions with attributes, the attributes
   are kept now. Some packages, e.g. `assertthat` create such
   functions.
