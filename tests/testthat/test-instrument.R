@@ -68,3 +68,9 @@ test_that("function with attributes", {
   f2 <- instrument(f)
   expect_identical(attributes(f), attributes(f2))
 })
+
+test_that("circular references", {
+  env <- new.env()
+  env$l <- list(x = env)
+  expect_error(instrument(env), NA)
+})
