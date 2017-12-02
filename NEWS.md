@@ -1,4 +1,10 @@
 
+# 1.1.0.9000
+
+* Fix instrumenting functions with attributes, the attributes
+  are kept now. Some packages, e.g. `assertthat` create such
+  functions.
+
 # 1.1.0
 
 * Support functions in lists and environments. In particular, this
