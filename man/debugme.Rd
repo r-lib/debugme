@@ -60,11 +60,27 @@ currently, and you cannot embed backticks into the code itself.
 
 \section{Log levels}{
 
-To organize the log messages into log levels, you can start the
-\code{!DEBUG} token with multiple \code{!} characters. You can then select the
-desired level of logging via \code{!} characters before the package name
-in the \code{DEBUGME} environment variable. E.g. \code{DEBUGME=!!mypackage} means
-that only debug messages with two or less \code{!} marks will be printed.
+\code{debugme} has two ways to organize log messages into log levels:
+a quick informal way, and a more formal one.
+
+For the informal way, you can start the \code{!DEBUG} token with multiple
+\code{!} characters. You can then select the desired level of logging via
+\code{!} characters before the package name in the \code{DEBUGME} environment
+variable. E.g. \code{DEBUGME=!!mypackage} means that only debug messages
+with two or less \code{!} marks will be printed.
+
+A more formal way is to use log level names: \code{"FATAL"}, \code{"ERROR"},
+\code{"WARNING"}, \code{"INFO"}, \code{"DEBUG"}, and \code{"VERBOSE"}. To specify the log
+level of the message, append the log level to \code{"!DEBUG"}, with a dash.
+E.g.:\preformatted{"!DEBUG-INFO Just letting you know that..."
+}
+
+To select the log level of a package, you can specify the level either
+with the number of \code{!} characters, as above, or adding the log level
+as a suffix to the package name, separated by a dash. E.g.:\preformatted{Sys.setenv(DEBUGME = "mypackage-INFO")
+}
+
+(Use either methods to set the log level, but do not mix them.)
 }
 
 \section{Debug stack}{

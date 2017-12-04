@@ -70,3 +70,11 @@ test_that("instrument R6 classes", {
   expect_output(x <- env$class$new("mrx"), "debugme.*creating mrx")
   expect_output(x$hello(), "debugme.*hello mrx")
 })
+
+test_that("parse_package_debug_levels", {
+  expect_equal(
+    parse_package_debug_levels(
+      c("!!foobar", "!!!bar", "bar-INFO", "bar-WARNING")),
+    c(2,3,4,3)
+  )
+})

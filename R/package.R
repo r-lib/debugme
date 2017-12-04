@@ -45,12 +45,31 @@
 #' currently, and you cannot embed backticks into the code itself.
 #'
 #' @section Log levels:
-#' To organize the log messages into log levels, you can start the
-#' `!DEBUG` token with multiple `!` characters. You can then select the
-#' desired level of logging via `!` characters before the package name
-#' in the `DEBUGME` environment variable. E.g. `DEBUGME=!!mypackage` means
-#' that only debug messages with two or less `!` marks will be printed.
+#' `debugme` has two ways to organize log messages into log levels:
+#' a quick informal way, and a more formal one.
 #'
+#' For the informal way, you can start the `!DEBUG` token with multiple
+#' `!` characters. You can then select the desired level of logging via
+#' `!` characters before the package name in the `DEBUGME` environment
+#' variable. E.g. `DEBUGME=!!mypackage` means that only debug messages
+#' with two or less `!` marks will be printed.
+#'
+#' A more formal way is to use log level names: `"FATAL"`, `"ERROR"`,
+#' `"WARNING"`, `"INFO"`, `"DEBUG"`, and `"VERBOSE"`. To specify the log
+#' level of the message, append the log level to `"!DEBUG"`, with a dash.
+#' E.g.:
+#' ```
+#' "!DEBUG-INFO Just letting you know that..."
+#' ```
+#'
+#' To select the log level of a package, you can specify the level either
+#' with the number of `!` characters, as above, or adding the log level
+#' as a suffix to the package name, separated by a dash. E.g.:
+#' ```
+#' Sys.setenv(DEBUGME = "mypackage-INFO")
+#' ```
+#' (Use either methods to set the log level, but do not mix them.)
+#' 
 #' @section Debug stack:
 #' By default `debugme` prints the *debug stack* at the beginning of
 #' the debug messages. The debug stack contains the functions in the call
@@ -107,16 +126,25 @@ debug_data$debug_call_stack <- NULL
 .onLoad <- function(libname, pkgname) {
   pkgs <- parse_env_vars()
   pkgnames <- sub("^!+", "", pkgs)
-  dbglevels <- get_debug_levels(pkgs)
+  dbglevels <- parse_package_debug_levels(pkgs)
   initialize_colors(pkgnames)
   initialize_debug_levels(pkgnames, dbglevels)
   initialize_output_file()
 }
 
-get_debug_levels <- function(x) {
-  m <- regexpr("^(!+)", x)
-  len <- attr(m, "match.length")
-  ifelse(len < 0, 0, len)
+parse_package_debug_levels <- function(x) {
+  old <- function(x) {
+    m <- re_match(x, "^(!+)")
+    ifelse(is.na(m[,1]), 0, nchar(m[,1]))
+  }
+
+  new <- function(level) {
+    wh <- match(level, names(get_log_levels()))
+    ifelse(is.na(wh), 0, wh)
+  }
+
+  m <- re_match(x, "^[a-zA-Z0-9]+-(?<level>[a-zA-Z0-9]+)$")
+  ifelse(is.na(m$.match), old(x), new(m$level))
 }
 
 parse_env_vars <- function() {

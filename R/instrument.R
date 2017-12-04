@@ -43,7 +43,7 @@ instrument <- function(x, pkg) {
 is_debug_string <- function(x) {
   is.character(x) &&
     length(x) == 1 &&
-    grepl("^!+DEBUG ", x)
+    grepl("^!+DEBUG", x)
 }
 
 make_debug_call <- function(x) {

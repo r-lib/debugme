@@ -14,7 +14,7 @@
 debug <- function(msg, pkg = environmentName(topenv(parent.frame()))) {
 
   pkg_level <- get_package_debug_level(pkg)
-  msg_level <- get_debug_levels(msg)
+  msg_level <- get_msg_debug_levels(msg)
   if (!is.na(pkg_level) && pkg_level > 0 && pkg_level < msg_level) {
     return(msg)
   }
@@ -42,6 +42,32 @@ debug <- function(msg, pkg = environmentName(topenv(parent.frame()))) {
   cat(style(full_msg), "\n", file = file, sep = "", append = TRUE)
 
   msg
+}
+
+get_log_levels <- function() {
+  c(FATAL   = 1,
+    ERROR   = 2,
+    WARNING = 3,
+    INFO    = 4,
+    DEBUG   = 5,
+    VERBOSE = 6
+    )
+}
+
+get_msg_debug_levels <- function(x) {
+  m <- re_match(x, "^!DEBUG-(?<level>[^\\s]+)\\s+")
+  if (! is.na(m$.match)) {
+    wh <- match(m$level, names(get_log_levels()))
+    if (is.na(wh)) {
+      warning("Unknown debug level: `", m$level, "`")
+      0
+    } else {
+      wh
+    }
+  } else {
+    m <- re_match(x, "^(!+)DEBUG\\s+")
+    if (is.na(m[1,1])) 0 else nchar(m[1,1])
+  }
 }
 
 env_address <- function(env) {
