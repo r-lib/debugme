@@ -1,6 +1,6 @@
 Package: debugme
 Title: Debug R Packages
-Version: 1.1.0.9000
+Version: 1.1.0.9001
 Author: Gábor Csárdi
 Maintainer: Gábor Csárdi <csardi.gabor@gmail.com>
 Description: Specify debug messages as special string constants, and
