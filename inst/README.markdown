@@ -104,16 +104,17 @@ If you never want to worry about the log messages making your code slower,
 you will like `debugme`. `debugme` debug strings have practically no
 performance penalty when debugging is off.
 
-Here is a simple comparison between debugging with a function call, `f1()`,
-debugging with debug strings, `f2()` and no debugging at all.
+Here is a simple comparison to evaluate debugging overhead with a function call, `f1()`,
+debugging with debug strings, `f2()`, and no debugging at all.
 
 
 ```r
-debug <- function(msg) { cat(msg, file = "/dev/null", "\n") }
+debug <- function(msg) { }
 f1 <- function() {
   for (i in 1:100) {
     debug("foobar")
-    Sys.sleep(.001)
+    # Avoid optimizing away the loop
+    i <- i + 1
   }
 }
 ```
@@ -123,7 +124,8 @@ f1 <- function() {
 f2 <- function() {
   for (i in 1:100) {
     "!DEBUG foobar"
-    Sys.sleep(.001)
+    # Avoid optimizing away the loop
+    i <- i + 1
   }
 }
 ```
@@ -132,22 +134,23 @@ f2 <- function() {
 ```r
 f3 <- function() {
   for (i in 1:100) {
-    Sys.sleep(.001)
+    # Avoid optimizing away the loop
+    i <- i + 1
   }
 }
 ```
 
 
 ```r
-microbenchmark::microbenchmark(f1(), f2(), f3(), times = 10L)
+microbenchmark::microbenchmark(f1(), f2(), f3())
 ```
 
 ```
-#> Unit: milliseconds
-#>  expr      min       lq     mean   median       uq      max neval
-#>  f1() 173.6354 175.8429 178.7392 178.5770 181.7964 184.2407    10
-#>  f2() 140.3894 141.3177 143.6294 143.4185 145.5860 148.1551    10
-#>  f3() 139.4864 141.3185 143.1088 142.5824 144.5418 146.5900    10
+#> Unit: microseconds
+#>  expr    min      lq      mean median      uq       max neval cld
+#>  f1() 19.585 20.8030 189.88149 21.718 23.5735 16721.969   100   a
+#>  f2()  4.988  5.8665  26.00780  7.314  9.5685  1777.398   100   a
+#>  f3()  4.513  5.4030  25.57436  6.354  8.3195  1793.295   100   a
 ```
 
 ## License
