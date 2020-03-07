@@ -17,11 +17,8 @@ the [`debug` npm package](https://github.com/visionmedia/debug).
 
 ## Installation and Usage
 
-Install the package from GitHub:
-
-
 ```r
-source("https://install-github.me/r-lib/debugme")
+install.packages("debugme")
 ```
 
 To use `debugme` in your package, import it, and then add the following
