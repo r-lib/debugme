@@ -32,9 +32,8 @@ By default debugging is off. To turn on debugging, set the \code{DEBUGME}
 environment variable to the names of the packages you want to debug.
 Package names can be separated by commas.
 
-Note that \code{debugme} checks for environment variables when it is starting
-up. Environment variables set after the package is loaded do not have
-any effect.
+This environment variable is read when the package is loaded,
+and with every call to \code{debugme()}.
 
 Example \code{debugme} entries:\preformatted{"!DEBUG Start Shiny app"
 }

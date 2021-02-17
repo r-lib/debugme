@@ -5,10 +5,10 @@ test_that(".onLoad", {
 
   val <- NULL
 
-  mockery::stub(.onLoad, "initialize_colors", function(pkgs) val <<- pkgs)
+  mockery::stub(refresh_pkg_info, "initialize_colors", function(pkgs) val <<- pkgs)
   withr::with_envvar(
     c("DEBUGME" = c("foo,bar")),
-    .onLoad()
+    refresh_pkg_info()
   )
   expect_identical(val, c("foo", "bar"))
 })

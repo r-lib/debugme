@@ -16,9 +16,8 @@
 #' environment variable to the names of the packages you want to debug.
 #' Package names can be separated by commas.
 #'
-#' Note that `debugme` checks for environment variables when it is starting
-#' up. Environment variables set after the package is loaded do not have
-#' any effect.
+#' This environment variable is read when the package is loaded,
+#' and with every call to `debugme()`.
 #'
 #' Example `debugme` entries:
 #' ```
@@ -69,7 +68,7 @@
 #' Sys.setenv(DEBUGME = "mypackage-INFO")
 #' ```
 #' (Use either methods to set the log level, but do not mix them.)
-#' 
+#'
 #' @section Debug stack:
 #' By default `debugme` prints the *debug stack* at the beginning of
 #' the debug messages. The debug stack contains the functions in the call
@@ -99,6 +98,8 @@
 debugme <- function(env = topenv(parent.frame()),
                     pkg = environmentName(env)) {
 
+  refresh_pkg_info()
+
   if (!is_debugged(pkg)) return()
 
   should_instrument <- function(x) {
@@ -124,12 +125,16 @@ debug_data$debug_call_stack <- NULL
 
 
 .onLoad <- function(libname, pkgname) {
+  initialize_output_file()
+  refresh_pkg_info()
+}
+
+refresh_pkg_info <- function() {
   pkgs <- parse_env_vars()
   pkgnames <- sub("^!+", "", pkgs)
   dbglevels <- parse_package_debug_levels(pkgs)
   initialize_colors(pkgnames)
   initialize_debug_levels(pkgnames, dbglevels)
-  initialize_output_file()
 }
 
 parse_package_debug_levels <- function(x) {
