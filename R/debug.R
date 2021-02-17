@@ -28,9 +28,10 @@ debug <- function(msg, pkg = environmentName(topenv(parent.frame()))) {
 
   if (tolower(Sys.getenv("DEBUGME_SHOW_STACK", "yes")) != "no") {
     level <- update_debug_call_stack_and_compute_level()
+    continuation <- isTRUE(attr(level, "continuation"))
     if (level > 0) {
       indent <- paste0(
-        c(" " , rep(" ", (level - 1) * 2), "+-"),
+        c(" " , rep(" ", (level - 1) * 2), if (continuation) " -" else "+-"),
         collapse = "")
     }
   }
@@ -81,8 +82,13 @@ update_debug_call_stack_and_compute_level <- function() {
   frames <- sys.frames()
 
   for (call in debug_data$debug_call_stack) {
-    if (call$nframe < nframe &&
+    if (call$nframe <= nframe &&
       call$id == env_address(frames[[call$nframe]])) {
+
+      if (call$nframe == nframe) {
+        return(structure(call$level, continuation = TRUE))
+      }
+
       level <- call$level + 1L
       break
     }
@@ -101,7 +107,7 @@ update_debug_call_stack_and_compute_level <- function() {
     debug_data$debug_call_stack <- list(call)
   }
 
-  level
+  structure(level, continuation = FALSE)
 }
 
 
