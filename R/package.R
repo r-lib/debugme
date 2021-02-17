@@ -126,8 +126,8 @@ debug_data$debug_call_stack <- NULL
 
 
 .onLoad <- function(libname, pkgname) {
-  refresh_pkg_info()
   initialize_output_file()
+  refresh_pkg_info()
 }
 
 refresh_pkg_info <- function() {
