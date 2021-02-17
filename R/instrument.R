@@ -1,16 +1,18 @@
 
-instrument <- function(x, pkg) {
+instrument <- function(x, pkg = NULL) {
+
+  force(pkg)
 
   envs <- character()
 
-  recurse <- function(y) { lapply(y, instrument0, pkg) }
+  recurse <- function(y) { lapply(y, instrument0) }
   env_recurse <- function(e) {
     nms <- ls(e, all.names = TRUE, sorted = FALSE)
-    for (n in nms) e[[n]] <- instrument0(e[[n]], pkg)
+    for (n in nms) e[[n]] <- instrument0(e[[n]])
     e
   }
 
-  instrument0 <- function(x, pkg) {
+  instrument0 <- function(x) {
     if (is_debug_string(x)) {
       make_debug_call(x)
     } else if (is.atomic(x) || is.name(x)) {
@@ -20,12 +22,12 @@ instrument <- function(x, pkg) {
     } else if (is.function(x)) {
       nx <- x
       if (length(fx <- formals(nx))) {
-        formals(nx) <- as.list(instrument0(fx, pkg))
+        formals(nx) <- as.list(instrument0(fx))
       }
       if (!is.null(bx <- body(nx))) {
-        body(nx) <- instrument0(bx, pkg)
+        body(nx) <- instrument0(bx)
       }
-      attributes(nx) <- instrument(attributes(x), pkg)
+      attributes(nx) <- instrument0(attributes(x))
       nx
     } else if (is.pairlist(x)) {
       ## Formal argument lists (when creating functions)
@@ -41,7 +43,7 @@ instrument <- function(x, pkg) {
     }
   }
 
-  instrument0(x, pkg)
+  instrument0(x)
 }
 
 is_debug_string <- function(x) {
