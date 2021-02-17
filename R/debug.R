@@ -81,7 +81,8 @@ update_debug_call_stack_and_compute_level <- function() {
   level <- 0L
   frames <- sys.frames()
 
-  for (call in debug_data$debug_call_stack) {
+  for (i in seq_along(debug_data$debug_call_stack)) {
+    call <- debug_data$debug_call_stack[[i]]
     if (call$nframe <= nframe &&
       call$id == env_address(frames[[call$nframe]])) {
 
@@ -101,7 +102,7 @@ update_debug_call_stack_and_compute_level <- function() {
 
   if (level > 0) {                      # found
     debug_data$debug_call_stack <-
-      c(list(call), debug_data$debug_call_stack)
+      c(list(call), debug_data$debug_call_stack[seq(i, length(debug_data$debug_call_stack))])
 
   } else {                              # new stack
     debug_data$debug_call_stack <- list(call)
