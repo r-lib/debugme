@@ -47,8 +47,8 @@ test_that("debug levels", {
 
   mockery::stub(debug, "get_package_debug_level", 1)
   env <- new.env()
-  env$f1 <- function() debug("!DEBUG foobar")
-  env$f2 <- function() debug("!!DEBUG baz")
+  env$f1 <- function() debug("foobar", level = 1)
+  env$f2 <- function() debug("baz", level = 2)
   expect_output(env$f1(), "foobar")
   expect_silent(env$f2())
 })

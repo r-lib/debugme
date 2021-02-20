@@ -53,7 +53,13 @@ is_debug_string <- function(x) {
 }
 
 make_debug_call <- function(x) {
-  x <- sub("^(!+)DEBUG", "\\1", x, perl = TRUE)
-  x <- handle_dynamic_code(x)
-  as.call(list(quote(debugme::debug), x))
+  parsed <- re_match(x, "^(?<level>!+DEBUG(?:-[^ ]+)? ) *(?<text>.*)$")
+  if (nrow(parsed) != 1) {
+    return(NULL)
+  }
+
+  level <- get_msg_debug_levels(parsed$level)
+  msg <- handle_dynamic_code(parsed$text)
+
+  as.call(list(quote(debugme::debug), msg, level = level))
 }

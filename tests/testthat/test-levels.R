@@ -21,12 +21,12 @@ test_that("log levels are instrumented", {
 test_that("log levels work properly", {
 
   fs <- list(
-    list("fatal",   function() debug("!DEBUG-FATAL fatal")),
-    list("error",   function() debug("!DEBUG-ERROR error")),
-    list("warning", function() debug("!DEBUG-WARNING warning")),
-    list("info",    function() debug("!DEBUG-INFO info")),
-    list("debug",   function() debug("!DEBUG-DEBUG debug")),
-    list("verbose", function() debug("!DEBUG-VERBOSE verbose"))
+    list("fatal",   function() debug("fatal", level = 1)),
+    list("error",   function() debug("error", level = 2)),
+    list("warning", function() debug("warning", level = 3)),
+    list("info",    function() debug("info", level = 4)),
+    list("debug",   function() debug("debug", level = 5)),
+    list("verbose", function() debug("verbose", level = 6))
   )
 
   for (pkg_level in 1:6) {
