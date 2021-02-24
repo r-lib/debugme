@@ -22,7 +22,11 @@ debug <- function(msg, pkg = environmentName(topenv(parent.frame())), level = 2)
   force(msg)
   file <- get_output_file()
 
-  time_stamp_mode <- if (file == "") "diff" else "stamp"
+  if (tolower(Sys.getenv("DEBUGME_SHOW_TIMESTAMP", "yes")) != "no") {
+    time_stamp_mode <- if (file == "") "diff" else "stamp"
+  } else {
+    time_stamp_mode <- ""
+  }
 
   indent <- " "
 
@@ -120,11 +124,13 @@ get_output_file <- function() {
   }
 }
 
-get_timestamp <- function(mode = c("diff", "stamp")) {
+get_timestamp <- function(mode = c("", "diff", "stamp")) {
   if (mode == "diff") {
     get_timestamp_diff()
-  } else {
+  } else if (mode == "stamp") {
     get_timestamp_stamp()
+  } else {
+    ""
   }
 }
 
