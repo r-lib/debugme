@@ -4,16 +4,18 @@
 \alias{debug}
 \title{Debug message}
 \usage{
-debug(msg, pkg = environmentName(topenv(parent.frame())))
+debug(msg, pkg = environmentName(topenv(parent.frame())), level = 2)
 }
 \arguments{
 \item{msg}{Message to print, character constant.}
 
 \item{pkg}{Package name to which the message belongs. Detected
 automatically.}
+
+\item{level}{The maximum debug level to show this message at.}
 }
 \value{
-The original message.
+Invisibly, the message if it is shown, otherwise \code{NULL}.
 }
 \description{
 Normally this function is \emph{not} called directly, but debug strings

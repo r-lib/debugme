@@ -7,19 +7,19 @@
 #' @param msg Message to print, character constant.
 #' @param pkg Package name to which the message belongs. Detected
 #'   automatically.
-#' @return The original message.
+#' @param level The maximum debug level to show this message at.
+#' @return Invisibly, the message if it is shown, otherwise `NULL`.
 #'
 #' @export
 
-debug <- function(msg, pkg = environmentName(topenv(parent.frame()))) {
+debug <- function(msg, pkg = environmentName(topenv(parent.frame())), level = 2) {
 
   pkg_level <- get_package_debug_level(pkg)
-  msg_level <- get_msg_debug_levels(msg)
-  if (!is.na(pkg_level) && pkg_level > 0 && pkg_level < msg_level) {
-    return(msg)
+  if (!is.na(pkg_level) && pkg_level > 0 && pkg_level < level) {
+    return(invisible(NULL))
   }
 
-  msg <- sub("^!+\\s*", "", msg)
+  force(msg)
   file <- get_output_file()
 
   if (tolower(Sys.getenv("DEBUGME_SHOW_TIMESTAMP", "yes")) != "no") {
@@ -46,7 +46,7 @@ debug <- function(msg, pkg = environmentName(topenv(parent.frame()))) {
   style <- if (file == "") get_package_style(pkg) else identity
   cat(style(full_msg), "\n", file = file, sep = "", append = TRUE)
 
-  msg
+  invisible(msg)
 }
 
 get_log_levels <- function() {
