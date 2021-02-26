@@ -2,6 +2,7 @@
 #' @importFrom grDevices colors
 
 initialize_colors <- function(debug_pkgs) {
+  local_seed()
 
   cols <- c("green", "blue", "magenta", "cyan", "white", "yellow", "red",
             "silver")
@@ -25,4 +26,43 @@ get_package_style <- function(pkg) {
   } else {
     identity
   }
+}
+
+local_seed <- function(.local_envir = parent.frame()) {
+  old_seed <- get_seed()
+  set_seed(debug_data$seed)
+  defer({
+    debug_data$seed <- get_seed()
+    set_seed(old_seed)
+  }, envir = .local_envir)
+}
+
+has_seed <- function() {
+  exists(".Random.seed", globalenv(), mode = "integer", inherits = FALSE)
+}
+
+get_seed <- function() {
+  if (has_seed()) {
+    get(".Random.seed", globalenv(), mode = "integer", inherits = FALSE)
+  }
+}
+
+set_seed <- function(seed) {
+  if (is.null(seed)) {
+    if (exists(
+      ".Random.seed",
+      globalenv(),
+      mode = "integer",
+      inherits = FALSE)) {
+      rm(".Random.seed", envir = globalenv())
+    }
+
+  } else {
+    assign(".Random.seed", seed, globalenv())
+  }
+}
+
+f <- function() {
+  local_seed()
+  sample(1:5)
 }
