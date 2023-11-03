@@ -18,7 +18,8 @@ Suggests:
     covr,
     mockery,
     R6,
-    testthat,
+    testthat (>= 3.0.0),
     withr
 Encoding: UTF-8
 Config/Needs/website: tidyverse/tidytemplate
+Config/testthat/edition: 3

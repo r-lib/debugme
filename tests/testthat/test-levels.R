@@ -1,6 +1,3 @@
-
-context("log levels")
-
 test_that("log levels are instrumented", {
 
   fs <- list(

@@ -1,6 +1,3 @@
-
-context("debugme")
-
 test_that(".onLoad", {
 
   val <- NULL

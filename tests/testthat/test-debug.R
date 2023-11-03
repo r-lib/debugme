@@ -1,7 +1,3 @@
-
-context("debug")
-
-
 test_that("debug indent", {
   f1 <- function() {
       debug("f1")

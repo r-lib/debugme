@@ -1,6 +1,3 @@
-
-context("colors")
-
 test_that("color palette is fine", {
 
   val <- NULL

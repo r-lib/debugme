@@ -1,6 +1,3 @@
-
-context("dynamic messages")
-
 test_that("handle_dynamic_code", {
 
   expect_equal(

@@ -1,6 +1,3 @@
-
-context("instrument")
-
 test_that("negatives", {
 
   negs <- list(
