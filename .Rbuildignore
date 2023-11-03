@@ -5,3 +5,7 @@
 ^.travis.yml$
 ^appveyor.yml$
 ^revdep$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
+^\.github$
