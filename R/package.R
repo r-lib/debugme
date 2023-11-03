@@ -140,7 +140,7 @@ refresh_pkg_info <- function() {
 parse_package_debug_levels <- function(x) {
   old <- function(x) {
     m <- re_match(x, "^(!+)")
-    ifelse(is.na(m[,1]), 0, nchar(m[,1]))
+    ifelse(is.na(m[[1]]), 0, nchar(m[[1]]))
   }
 
   new <- function(level) {
