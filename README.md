@@ -6,14 +6,14 @@
 > Debug R Packages
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/r-lib/debugme/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/r-lib/debugme/actions/workflows/R-CMD-check.yaml)
-[![](http://www.r-pkg.org/badges/version/debugme)](http://www.r-pkg.org/pkg/debugme)
-[![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/debugme)](http://www.r-pkg.org/pkg/debugme)
+[![](https://www.r-pkg.org/badges/version/debugme)](https://www.r-pkg.org/pkg/debugme)
+[![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/debugme)](https://www.r-pkg.org/pkg/debugme)
 [![Codecov test coverage](https://codecov.io/gh/r-lib/debugme/branch/main/graph/badge.svg)](https://app.codecov.io/gh/r-lib/debugme?branch=main)
 <!-- badges: end -->
 
 Specify debug messages as special string constants, and control debugging of
 packages via environment variables. This package was largely influenced by
-the [`debug` npm package](https://github.com/visionmedia/debug).
+the [`debug` npm package](https://github.com/debug-js/debug).
 
 ## Installation and Usage
 
@@ -150,10 +150,10 @@ microbenchmark::microbenchmark(f1(), f2(), f3())
 
 ```
 #> Unit: microseconds
-#>  expr    min      lq     mean median     uq      max neval cld
-#>  f1() 10.373 10.5575 23.84970 10.660 10.865 1295.518   100   a
-#>  f2()  1.394  1.4350 91.41401  1.435  1.435 8998.557   100   a
-#>  f3()  1.107  1.1890  7.74777  1.189  1.189  656.328   100   a
+#>  expr    min     lq      mean median     uq      max neval cld
+#>  f1() 10.332 10.496 103.29499 10.578 10.701 9277.398   100   a
+#>  f2()  1.394  1.435   8.29676  1.435  1.435  687.406   100   a
+#>  f3()  1.107  1.189   7.86011  1.189  1.189  667.767   100   a
 ```
 
 ## License
