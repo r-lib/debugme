@@ -17,9 +17,18 @@ the [`debug` npm package](https://github.com/debug-js/debug).
 
 ## Installation and Usage
 
+Stable version:
+
 
 ```r
 install.packages("debugme")
+```
+
+To install the development version:
+
+
+```r
+pak::pak("r-lib/debugme")
 ```
 
 To use `debugme` in your package, import it, and then add the following
