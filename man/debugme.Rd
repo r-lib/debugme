@@ -3,7 +3,6 @@
 \docType{package}
 \name{debugme}
 \alias{debugme}
-\alias{debugme-package}
 \title{Debug R Packages}
 \usage{
 debugme(env = topenv(parent.frame()), pkg = environmentName(env))
@@ -24,8 +23,10 @@ To add debugging to your package, you need to
 \enumerate{
 \item Import the \code{debugme} package.
 \item Define an \code{.onLoad} function in your package, that calls \code{debugme}.
-An example:\preformatted{.onLoad <- function(libname, pkgname) { debugme::debugme() }
-}
+An example:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{.onLoad <- function(libname, pkgname) \{ debugme::debugme() \}
+}\if{html}{\out{</div>}}
 }
 
 By default debugging is off. To turn on debugging, set the \code{DEBUGME}
@@ -35,8 +36,10 @@ Package names can be separated by commas.
 This environment variable is read when the package is loaded,
 and with every call to \code{debugme()}.
 
-Example \code{debugme} entries:\preformatted{"!DEBUG Start Shiny app"
-}
+Example \code{debugme} entries:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{"!DEBUG Start Shiny app"
+}\if{html}{\out{</div>}}
 }
 \section{Dynamic debug messsages}{
 
@@ -49,9 +52,11 @@ code.
 
 \code{debugme} allows embedding R code into the debug messages, within
 backticks. The code will be evaluated at runtime. Here are some
-examples:\preformatted{"!DEBUG Start Shiny app at `path`"
+examples:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{"!DEBUG Start Shiny app at `path`"
 "!DEBUG Got HTTP response `httr::status_code(reponse)`"
-}
+}\if{html}{\out{</div>}}
 
 Note that parsing the debug strings for code is not very sophisticated
 currently, and you cannot embed backticks into the code itself.
@@ -71,13 +76,17 @@ with two or less \code{!} marks will be printed.
 A more formal way is to use log level names: \code{"FATAL"}, \code{"ERROR"},
 \code{"WARNING"}, \code{"INFO"}, \code{"DEBUG"}, and \code{"VERBOSE"}. To specify the log
 level of the message, append the log level to \code{"!DEBUG"}, with a dash.
-E.g.:\preformatted{"!DEBUG-INFO Just letting you know that..."
-}
+E.g.:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{"!DEBUG-INFO Just letting you know that..."
+}\if{html}{\out{</div>}}
 
 To select the log level of a package, you can specify the level either
 with the number of \code{!} characters, as above, or adding the log level
-as a suffix to the package name, separated by a dash. E.g.:\preformatted{Sys.setenv(DEBUGME = "mypackage-INFO")
-}
+as a suffix to the package name, separated by a dash. E.g.:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{Sys.setenv(DEBUGME = "mypackage-INFO")
+}\if{html}{\out{</div>}}
 
 (Use either methods to set the log level, but do not mix them.)
 }
