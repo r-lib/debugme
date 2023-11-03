@@ -2,7 +2,6 @@
 % Please edit documentation in R/debugme-package.R
 \docType{package}
 \name{debugme-package}
-\alias{debugme}
 \alias{debugme-package}
 \title{debugme: Debug R Packages}
 \description{

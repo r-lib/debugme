@@ -1,3 +1,4 @@
+#' @aliases debugme-package NULL
 #' @keywords internal
 "_PACKAGE"
 
