@@ -80,7 +80,7 @@ terminal supports color, will be colored differently for each package.
 
 ## Example
 
-![](inst/screencast.gif)
+![](/screencast.gif)
 
 ## Dynamic code
 
