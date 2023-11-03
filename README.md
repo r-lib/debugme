@@ -4,18 +4,19 @@
 # debugme
 
 > Debug R Packages
-
-[![Linux Build Status](https://travis-ci.org/r-lib/debugme.svg?branch=master)](https://travis-ci.org/r-lib/debugme)
-[![Windows Build status](https://ci.appveyor.com/api/projects/status/github/r-lib/debugme?svg=true)](https://ci.appveyor.com/project/gaborcsardi/debugme)
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/r-lib/debugme/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/r-lib/debugme/actions/workflows/R-CMD-check.yaml)
 [![](http://www.r-pkg.org/badges/version/debugme)](http://www.r-pkg.org/pkg/debugme)
 [![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/debugme)](http://www.r-pkg.org/pkg/debugme)
-[![Coverage Status](https://img.shields.io/codecov/c/github/r-lib/debugme/master.svg)](https://codecov.io/github/r-lib/debugme?branch=master)
+[![Codecov test coverage](https://codecov.io/gh/r-lib/debugme/branch/main/graph/badge.svg)](https://app.codecov.io/gh/r-lib/debugme?branch=main)
+<!-- badges: end -->
 
 Specify debug messages as special string constants, and control debugging of
 packages via environment variables. This package was largely influenced by
 the [`debug` npm package](https://github.com/visionmedia/debug).
 
 ## Installation and Usage
+
 
 ```r
 install.packages("debugme")
@@ -143,11 +144,16 @@ microbenchmark::microbenchmark(f1(), f2(), f3())
 ```
 
 ```
+#> Warning in microbenchmark::microbenchmark(f1(), f2(), f3()): less accurate
+#> nanosecond times to avoid potential integer overflows
+```
+
+```
 #> Unit: microseconds
-#>  expr    min      lq      mean median      uq       max neval cld
-#>  f1() 19.585 20.8030 189.88149 21.718 23.5735 16721.969   100   a
-#>  f2()  4.988  5.8665  26.00780  7.314  9.5685  1777.398   100   a
-#>  f3()  4.513  5.4030  25.57436  6.354  8.3195  1793.295   100   a
+#>  expr    min      lq     mean median     uq      max neval cld
+#>  f1() 10.373 10.5575 23.84970 10.660 10.865 1295.518   100   a
+#>  f2()  1.394  1.4350 91.41401  1.435  1.435 8998.557   100   a
+#>  f3()  1.107  1.1890  7.74777  1.189  1.189  656.328   100   a
 ```
 
 ## License

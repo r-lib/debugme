@@ -11,12 +11,12 @@ knitr::opts_chunk$set(
 # debugme
 
 > Debug R Packages
-
-[![Linux Build Status](https://travis-ci.org/r-lib/debugme.svg?branch=master)](https://travis-ci.org/r-lib/debugme)
-[![Windows Build status](https://ci.appveyor.com/api/projects/status/github/r-lib/debugme?svg=true)](https://ci.appveyor.com/project/gaborcsardi/debugme)
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/r-lib/debugme/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/r-lib/debugme/actions/workflows/R-CMD-check.yaml)
 [![](http://www.r-pkg.org/badges/version/debugme)](http://www.r-pkg.org/pkg/debugme)
 [![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/debugme)](http://www.r-pkg.org/pkg/debugme)
-[![Coverage Status](https://img.shields.io/codecov/c/github/r-lib/debugme/master.svg)](https://codecov.io/github/r-lib/debugme?branch=master)
+[![Codecov test coverage](https://codecov.io/gh/r-lib/debugme/branch/main/graph/badge.svg)](https://app.codecov.io/gh/r-lib/debugme?branch=main)
+<!-- badges: end -->
 
 Specify debug messages as special string constants, and control debugging of
 packages via environment variables. This package was largely influenced by
