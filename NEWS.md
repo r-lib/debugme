@@ -1,12 +1,29 @@
 
 # 1.1.0.9000
 
-* Make sure code is not instrumented multiple times, which
-  can happen if environments are referenced from multiple places
+* debugme now does not instrumented code multiple times, this
+  could happen if environments were referenced from multiple
+  places (#15).
 
-* Fix instrumenting functions with attributes, the attributes
-  are kept now. Some packages, e.g. `assertthat` create such
-  functions.
+* debugme now correctly instruments functions with attributes,
+  the attributes are kept now. Some packages, e.g. `assertthat` create
+  such functions.
+
+* debugme now supports debug levels. Relatedly, `debugme()` has a
+  `level` argument now (#49, @krlmlr).
+
+* debugme now correctly instruments functions with `NULL` body
+  and functions with no arguments.
+
+* Nested calls are printed better now, with indentation (#44, @krlmlr).
+
+* `debugme()` now re-reads the `DEBUGME` environment variable
+  (#45, @krlmlr).
+
+* New `DEBUGME_SHOW_TIMESTAMP` environment variable to hide timestamp
+  output for reproducibility (#49, @krlmlr).
+
+* debugme now does not change the random seed (#50).
 
 # 1.1.0
 
