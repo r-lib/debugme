@@ -1,5 +1,4 @@
-
-# 1.1.0.9000
+# debugme 1.2.0
 
 * debugme now does not instrumented code multiple times, this
   could happen if environments were referenced from multiple
@@ -25,7 +24,7 @@
 
 * debugme now does not change the random seed (#50).
 
-# 1.1.0
+# debugme 1.1.0
 
 * Support functions in lists and environments. In particular, this
   fixes debugging R6 methods (#15)
@@ -38,15 +37,15 @@
 
 * Print the debug stack, optionally (@kforner, #21)
 
-# 1.0.2
+# debugme 1.0.2
 
 * Do not us `testthat::with_mock`, it interferes with the JIT that is
   default in R 3.4.0. Use the `mockery` package instead.
 
-# 1.0.1
+# debugme 1.0.1
 
 * Fix a test case bug.
 
-# 1.0.0
+# debugme 1.0.0
 
 First public release.
