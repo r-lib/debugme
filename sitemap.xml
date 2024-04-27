@@ -4,7 +4,13 @@
     <loc>https://r-lib.github.io/debugme/404.html</loc>
   </url>
   <url>
+    <loc>https://r-lib.github.io/debugme/CODE_OF_CONDUCT.html</loc>
+  </url>
+  <url>
     <loc>https://r-lib.github.io/debugme/LICENSE-text.html</loc>
+  </url>
+  <url>
+    <loc>https://r-lib.github.io/debugme/LICENSE.html</loc>
   </url>
   <url>
     <loc>https://r-lib.github.io/debugme/authors.html</loc>
@@ -17,6 +23,9 @@
   </url>
   <url>
     <loc>https://r-lib.github.io/debugme/reference/debug.html</loc>
+  </url>
+  <url>
+    <loc>https://r-lib.github.io/debugme/reference/debugme-package.html</loc>
   </url>
   <url>
     <loc>https://r-lib.github.io/debugme/reference/debugme.html</loc>
