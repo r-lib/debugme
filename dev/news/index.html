@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">debugme</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.1.0.9001</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.2.0.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -44,7 +44,42 @@
       <small>Source: <a href="https://github.com/r-lib/debugme/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
-  </main></div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="development version" id="debugme-development-version">debugme (development version)<a class="anchor" aria-label="anchor" href="#debugme-development-version"></a></h2>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="1.2.0" id="debugme-120">debugme 1.2.0<a class="anchor" aria-label="anchor" href="#debugme-120"></a></h2><p class="text-muted">CRAN release: 2024-04-25</p>
+<ul><li><p>debugme now does not instrumented code multiple times, this could happen if environments were referenced from multiple places (<a href="https://github.com/r-lib/debugme/issues/15" class="external-link">#15</a>).</p></li>
+<li><p>debugme now correctly instruments functions with attributes, the attributes are kept now. Some packages, e.g. <code>assertthat</code> create such functions.</p></li>
+<li><p>debugme now supports debug levels. Relatedly, <code><a href="../reference/debugme.html">debugme()</a></code> has a <code>level</code> argument now (<a href="https://github.com/r-lib/debugme/issues/49" class="external-link">#49</a>, <a href="https://github.com/krlmlr" class="external-link">@krlmlr</a>).</p></li>
+<li><p>debugme now correctly instruments functions with <code>NULL</code> body and functions with no arguments.</p></li>
+<li><p>Nested calls are printed better now, with indentation (<a href="https://github.com/r-lib/debugme/issues/44" class="external-link">#44</a>, <a href="https://github.com/krlmlr" class="external-link">@krlmlr</a>).</p></li>
+<li><p><code><a href="../reference/debugme.html">debugme()</a></code> now re-reads the <code>DEBUGME</code> environment variable (<a href="https://github.com/r-lib/debugme/issues/45" class="external-link">#45</a>, <a href="https://github.com/krlmlr" class="external-link">@krlmlr</a>).</p></li>
+<li><p>New <code>DEBUGME_SHOW_TIMESTAMP</code> environment variable to hide timestamp output for reproducibility (<a href="https://github.com/r-lib/debugme/issues/49" class="external-link">#49</a>, <a href="https://github.com/krlmlr" class="external-link">@krlmlr</a>).</p></li>
+<li><p>debugme now does not change the random seed (<a href="https://github.com/r-lib/debugme/issues/50" class="external-link">#50</a>).</p></li>
+</ul></div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="1.1.0" id="debugme-110">debugme 1.1.0<a class="anchor" aria-label="anchor" href="#debugme-110"></a></h2><p class="text-muted">CRAN release: 2017-10-22</p>
+<ul><li><p>Support functions in lists and environments. In particular, this fixes debugging R6 methods (<a href="https://github.com/r-lib/debugme/issues/15" class="external-link">#15</a>)</p></li>
+<li><p>Support <code>DEBUGME_OUTPUT_DIR</code> (<a href="https://github.com/r-lib/debugme/issues/19" class="external-link">#19</a>)</p></li>
+<li><p>Support log levels (<a href="https://github.com/r-lib/debugme/issues/12" class="external-link">#12</a>)</p></li>
+<li><p>Fix functions without arguments (<a href="https://github.com/r-lib/debugme/issues/17" class="external-link">#17</a>)</p></li>
+<li><p>Print the debug stack, optionally (<a href="https://github.com/kforner" class="external-link">@kforner</a>, <a href="https://github.com/r-lib/debugme/issues/21" class="external-link">#21</a>)</p></li>
+</ul></div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="1.0.2" id="debugme-102">debugme 1.0.2<a class="anchor" aria-label="anchor" href="#debugme-102"></a></h2><p class="text-muted">CRAN release: 2017-03-01</p>
+<ul><li>Do not us <code><a href="https://testthat.r-lib.org/reference/with_mock.html" class="external-link">testthat::with_mock</a></code>, it interferes with the JIT that is default in R 3.4.0. Use the <code>mockery</code> package instead.</li>
+</ul></div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="1.0.1" id="debugme-101">debugme 1.0.1<a class="anchor" aria-label="anchor" href="#debugme-101"></a></h2><p class="text-muted">CRAN release: 2016-11-01</p>
+<ul><li>Fix a test case bug.</li>
+</ul></div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="1.0.0" id="debugme-100">debugme 1.0.0<a class="anchor" aria-label="anchor" href="#debugme-100"></a></h2>
+<p>First public release.</p>
+</div>
+  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+    </nav></aside></div>
 
 
     <footer><div class="pkgdown-footer-left">
