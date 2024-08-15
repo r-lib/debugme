@@ -115,10 +115,11 @@ debugme <- function(env = topenv(parent.frame()),
   )
 }
 
+# Used in get_package_style()
 is_debugged <- function(pkg) {
   pkg %in% names(debug_data$palette)
 }
-# To allow targetted mocking.
+# To allow targetted mocking in debugme()
 is_debugged2 <- is_debugged
 
 
