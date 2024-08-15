@@ -1,7 +1,5 @@
 test_that(".onLoad", {
-
   val <- NULL
-
   local_mocked_bindings(
     initialize_colors = function(pkgs) val <<- pkgs
   )
@@ -13,18 +11,14 @@ test_that(".onLoad", {
 })
 
 test_that("debugme", {
-
   env <- new.env()
   env$f1 <- function() { "nothing here" }
   env$f2 <- function() { "!DEBUG foobar" }
   env$notme <- "!DEBUG nonono"
   env$.hidden <- function() { "!DEBUG foobar2" }
-
   expect_silent(debugme(env))
-
   local_mocked_bindings(is_debugged2 = function(...) TRUE)
   debugme(env)
-
   expect_silent(env$f1())
   expect_output(env$f2(), "debugme foobar \\+[0-9]+ms")
   expect_identical(env$notme, "!DEBUG nonono")
@@ -32,19 +26,15 @@ test_that("debugme", {
 })
 
 test_that("instrument environments", {
-
   env <- new.env()
   env$env <- new.env()
   env$env$fun <- function() { "!DEBUG coocoo" }
-
   local_mocked_bindings(is_debugged2 = function(...) TRUE)
   expect_silent(debugme(env))
-
   expect_output(env$env$fun(), "coocoo")
 })
 
 test_that("instrument R6 classes", {
-
   env <- new.env()
   env$class <- R6::R6Class(
     "foobar",
@@ -62,10 +52,8 @@ test_that("instrument R6 classes", {
       name = NULL
     )
   )
-
   local_mocked_bindings(is_debugged2 = function(...) TRUE)
   expect_silent(debugme(env))
-
   expect_output(x <- env$class$new("mrx"), "debugme.*creating mrx")
   expect_output(x$hello(), "debugme.*hello mrx")
 })

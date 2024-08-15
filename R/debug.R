@@ -149,11 +149,7 @@ get_timestamp_diff <- function() {
 }
 
 get_timestamp_stamp <- function() {
-  paste0(format_date(systime()), " ")
-}
-
-systime <- function() {
-  Sys.time()
+  paste0(format_date(Sys.time()), " ")
 }
 
 format_date <- function(date) {

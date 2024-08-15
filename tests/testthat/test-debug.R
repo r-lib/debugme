@@ -3,7 +3,6 @@ test_that("debug indent", {
     debug("f1")
     f2()
   }
-  
   f2 <- function() {
     debug("f2.1")
     f3()
@@ -12,9 +11,7 @@ test_that("debug indent", {
   f3 <- function() {
     debug("f3")
   }
-  
   out <- capture_output(eval({ debug("f0.1"); f1(); f2(); debug("f0.2")}))
-  
   expect_match(out, 'debugme f0.1', fixed = TRUE)
   expect_match(out, 'debugme +-f1', fixed = TRUE)
   expect_match(out, 'debugme   +-f2.1', fixed = TRUE)
@@ -28,7 +25,6 @@ test_that("debug indent", {
     c(DEBUGME_SHOW_STACK = "no"),
     capture_output(eval({ debug("f0.1"); f1(); f2(); debug("f0.2")}))
   )
-  
   expect_match(out, 'debugme f0.1', fixed = TRUE)
   expect_match(out, 'debugme f1', fixed = TRUE)
   expect_match(out, 'debugme f2.1', fixed = TRUE)
@@ -66,10 +62,9 @@ test_that("format_date", {
 })
 
 test_that("get_timestamp_stamp", {
-  
   mytime <- structure(1477967634, class = c("POSIXct", "POSIXt"),
                       tzone = "UTC")
-  local_mocked_bindings(systime = function() mytime)
+  local_mocked_bindings(Sys.time = function() mytime, .package = "base")
   expect_equal(
     get_timestamp_stamp(),
     "2016-11-01T02:33:54.54.000+00:00 "
@@ -79,16 +74,13 @@ test_that("get_timestamp_stamp", {
 test_that("debugging to a file", {
   tmp <- tempfile()
   on.exit(unlink(tmp), add = TRUE)
-  
   on.exit(initialize_output_file(), add = TRUE)
   on.exit(try(close(debug_data$output_fd), silent = TRUE), add = TRUE)
-  
   withr::with_envvar(c(DEBUGME_OUTPUT_FILE = tmp), {
     initialize_output_file()
   })
   debug("hello world!", "foobar")
   debug("hello again!", "foo")
-  
   log <- readLines(tmp)
   expect_match(log[1], "^foobar hello world!")
   expect_match(log[2], "^foo hello again!")
@@ -98,16 +90,13 @@ test_that("debugging to a directory", {
   tmp <- tempfile()
   dir.create(tmp)
   on.exit(unlink(tmp, recursive = TRUE), add = TRUE)
-  
   on.exit(initialize_output_file(), add = TRUE)
   on.exit(try(close(debug_data$output_fd), silent = TRUE), add = TRUE)
-  
   withr::with_envvar(c(DEBUGME_OUTPUT_DIR = tmp), {
     initialize_output_file()
   })
   debug("hello world!", "foobar")
   debug("hello again!", "foo")
-  
   log <- readLines(file.path(tmp, paste0("debugme-", Sys.getpid(), ".log")))
   expect_match(log[1], "^foobar hello world!")
   expect_match(log[2], "^foo hello again!")
