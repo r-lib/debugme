@@ -27,7 +27,7 @@ test_that("log levels work properly", {
   )
 
   for (pkg_level in 1:6) {
-    mockery::stub(debug, "get_package_debug_level", pkg_level)
+    local_mocked_bindings(get_package_debug_level = function(...) pkg_level)
     for (idx in seq_along(fs)) {
       if (idx <= pkg_level) {
         expect_output(fs[[idx]][[2]](), fs[[idx]][[1]])

@@ -18,7 +18,6 @@ Imports:
     grDevices
 Suggests:
     covr,
-    mockery,
     R6,
     testthat (>= 3.0.0),
     withr

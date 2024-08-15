@@ -2,7 +2,9 @@ test_that(".onLoad", {
 
   val <- NULL
 
-  mockery::stub(refresh_pkg_info, "initialize_colors", function(pkgs) val <<- pkgs)
+  local_mocked_bindings(
+    initialize_colors = function(pkgs) val <<- pkgs
+  )
   withr::with_envvar(
     c("DEBUGME" = c("foo,bar")),
     refresh_pkg_info()
@@ -20,7 +22,7 @@ test_that("debugme", {
 
   expect_silent(debugme(env))
 
-  mockery::stub(debugme, "is_debugged", TRUE)
+  local_mocked_bindings(is_debugged2 = function(...) TRUE)
   debugme(env)
 
   expect_silent(env$f1())
@@ -35,7 +37,7 @@ test_that("instrument environments", {
   env$env <- new.env()
   env$env$fun <- function() { "!DEBUG coocoo" }
 
-  mockery::stub(debugme, "is_debugged", TRUE)
+  local_mocked_bindings(is_debugged2 = function(...) TRUE)
   expect_silent(debugme(env))
 
   expect_output(env$env$fun(), "coocoo")
@@ -61,7 +63,7 @@ test_that("instrument R6 classes", {
     )
   )
 
-  mockery::stub(debugme, "is_debugged", TRUE)
+  local_mocked_bindings(is_debugged2 = function(...) TRUE)
   expect_silent(debugme(env))
 
   expect_output(x <- env$class$new("mrx"), "debugme.*creating mrx")
