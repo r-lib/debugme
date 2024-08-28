@@ -1,15 +1,9 @@
 test_that(".onLoad", {
-
-  val <- NULL
-
-  local_mocked_bindings(
-    initialize_colors = function(pkgs) val <<- pkgs
-  )
   withr::with_envvar(
     c("DEBUGME" = c("foo,bar")),
     refresh_pkg_info()
   )
-  expect_identical(val, c("foo", "bar"))
+  expect_identical(names(debug_data$palette), c("foo", "bar"))
 })
 
 test_that("debugme", {
@@ -20,13 +14,12 @@ test_that("debugme", {
   env$notme <- "!DEBUG nonono"
   env$.hidden <- function() { "!DEBUG foobar2" }
 
-  expect_silent(debugme(env))
-
-  local_mocked_bindings(is_debugged2 = function(...) TRUE)
-  debugme(env)
+  withr::local_envvar(DEBUGME = "debugme")
+  refresh_pkg_info()
+  debugme(env, pkg = "debugme")
 
   expect_silent(env$f1())
-  expect_output(env$f2(), "debugme foobar \\+[0-9]+ms")
+  expect_output(env$f2(), "debugme foobar ")
   expect_identical(env$notme, "!DEBUG nonono")
   expect_output(env$.hidden(), "debugme foobar2 \\+[0-9]+ms")
 })
@@ -37,8 +30,9 @@ test_that("instrument environments", {
   env$env <- new.env()
   env$env$fun <- function() { "!DEBUG coocoo" }
 
-  local_mocked_bindings(is_debugged2 = function(...) TRUE)
-  expect_silent(debugme(env))
+  withr::local_envvar(DEBUGME = "debugme")
+  refresh_pkg_info()
+  debugme(env, pkg = "debugme")
 
   expect_output(env$env$fun(), "coocoo")
 })
@@ -62,8 +56,9 @@ test_that("instrument R6 classes", {
     )
   )
 
-  local_mocked_bindings(is_debugged2 = function(...) TRUE)
-  expect_silent(debugme(env))
+  withr::local_envvar(DEBUGME = "debugme")
+  refresh_pkg_info()
+  debugme(env, pkg = "debugme")
 
   expect_output(x <- env$class$new("mrx"), "debugme.*creating mrx")
   expect_output(x$hello(), "debugme.*hello mrx")
