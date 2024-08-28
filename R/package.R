@@ -100,7 +100,7 @@ debugme <- function(env = topenv(parent.frame()),
 
   refresh_pkg_info()
 
-  if (!is_debugged2(pkg)) return()
+  if (!is_debugged(pkg)) return()
 
   should_instrument <- function(x) {
     obj <- get(x, envir = env)
@@ -115,13 +115,9 @@ debugme <- function(env = topenv(parent.frame()),
   )
 }
 
-# Used in get_package_style()
 is_debugged <- function(pkg) {
   pkg %in% names(debug_data$palette)
 }
-# To allow targetted mocking in debugme()
-is_debugged2 <- is_debugged
-
 
 debug_data <- new.env()
 debug_data$timestamp <- NULL

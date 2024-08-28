@@ -15,11 +15,7 @@ initialize_colors <- function(debug_pkgs) {
     names = debug_pkgs
   )
 
-  assign_debug("palette", palette)
-}
-
-assign_debug <- function(x, value) {
-  assign(x, value, envir = debug_data)
+  assign("palette", palette, envir = debug_data)
 }
 
 #' @importFrom crayon make_style

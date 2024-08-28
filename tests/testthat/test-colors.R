@@ -1,19 +1,11 @@
 test_that("color palette is fine", {
-
-  val <- NULL
-
-  local_mocked_bindings(
-    assign_debug = function(x, value) {
-      val <<- value
-    }
-  )
   initialize_colors(c("foo", "bar"))
-  expect_equal(names(val), c("foo", "bar"))
-  expect_true(all(val %in% grDevices::colors()))
+  expect_equal(names(debug_data[["palette"]]), c("foo", "bar"))
+  expect_true(all(debug_data[["palette"]] %in% grDevices::colors()))
 
   initialize_colors(letters)
-  expect_equal(names(val), letters)
-  expect_true(all(val %in% c("silver", grDevices::colors())))
+  expect_equal(names(debug_data[["palette"]]), letters)
+  expect_true(all(debug_data[["palette"]] %in% c("silver", grDevices::colors())))
 })
 
 ## Quite an artificial test case...
