@@ -41,7 +41,9 @@ test_that("debug indent", {
 
 test_that("debug levels", {
 
-  mockery::stub(debug, "get_package_debug_level", 1)
+  local_mocked_bindings(
+    get_package_debug_level = function(...) 1
+  )
   env <- new.env()
   env$f1 <- function() debug("foobar", level = 1)
   env$f2 <- function() debug("baz", level = 2)
@@ -68,7 +70,7 @@ test_that("get_timestamp_stamp", {
 
   mytime <- structure(1477967634, class = c("POSIXct", "POSIXt"),
                       tzone = "UTC")
-  mockery::stub(get_timestamp_stamp, "Sys.time", mytime)
+  local_mocked_bindings(Sys.time = function() mytime, .package = "base")
   expect_equal(
     get_timestamp_stamp(),
     "2016-11-01T02:33:54.54.000+00:00 "

@@ -1,24 +1,21 @@
 test_that("color palette is fine", {
-
-  val <- NULL
-
-  mockery::stub(initialize_colors, "assign",
-                function(x, value, envir, ...) val <<- value)
   initialize_colors(c("foo", "bar"))
-  expect_equal(names(val), c("foo", "bar"))
-  expect_true(all(val %in% grDevices::colors()))
+  expect_equal(names(debug_data[["palette"]]), c("foo", "bar"))
+  expect_true(all(debug_data[["palette"]] %in% grDevices::colors()))
 
   initialize_colors(letters)
-  expect_equal(names(val), letters)
-  expect_true(all(val %in% c("silver", grDevices::colors())))
+  expect_equal(names(debug_data[["palette"]]), letters)
+  expect_true(all(debug_data[["palette"]] %in% c("silver", grDevices::colors())))
 })
 
 ## Quite an artificial test case...
 
 test_that("get a package style", {
 
-  mockery::stub(get_package_style, "is_debugged", function(...) TRUE)
-  mockery::stub(get_package_style, "make_style", function(x) substitute(x))
+  local_mocked_bindings(
+    is_debugged = function(...) TRUE,
+    make_style = function(x) substitute(x)
+  )
   ret <- get_package_style("pkg")
   expect_equal(ret, quote(debug_data$palette[pkg]))
 })
