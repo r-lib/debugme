@@ -11,6 +11,7 @@ test_that("color palette is fine", {
 ## Quite an artificial test case...
 
 test_that("get a package style", {
+
   local_mocked_bindings(
     is_debugged = function(...) TRUE,
     make_style = function(x) substitute(x)
