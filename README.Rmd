@@ -85,7 +85,7 @@ terminal supports color, will be colored differently for each package.
 
 ## Example
 
-![](/screencast.gif)
+![Screencast showing debugme output with colored debug messages in a terminal](/screencast.gif)
 
 ## Dynamic code
 
